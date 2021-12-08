@@ -14,6 +14,8 @@ fun main() {
 
     println("Day 4, bingo first: ${Day4.getScoreOfFirstWinningBoard()}")
     println("Day 4, bingo last: ${Day4.getScoreOfLastWinningBoard()}")
+
+    println("Day 5, number of coordinates in two or more lines (with diagonals): ${Day5.countCoordinatesInTwoOrMoreLines()}")
 }
 
 object PuzzleData {
