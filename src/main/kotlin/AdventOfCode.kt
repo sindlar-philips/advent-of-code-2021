@@ -6,6 +6,11 @@ fun main() {
 
     println("Day 1, number of increases: ${Day1.countIncreases()}")
     println("Day 1, number of increases (windowed): ${Day1.countIncreasesWindowed()}")
+
+    println("Day 2, position (with aim): ${Day2.determinePosition()}")
+
+    println("Day 3, power consumption: ${Day3.calculatePowerConsumption()}")
+    println("Day 3, life support rating: ${Day3.calculateLifeSupportRating()}")
 }
 
 object PuzzleData {
