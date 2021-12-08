@@ -22,6 +22,9 @@ fun main() {
 
     println("Day 7, minimum fuel required: ${Day7.minimumFuelRequired()}")
     println("Day 7, minimum fuel required (weighted): ${Day7.minimumFuelRequiredWeighted()}")
+
+    println("Day 8, count unique outputs: ${Day8.countUniqueOutputs()}")
+    println("Day 8, summed values after fixing wiring: ${Day8.fixWiringAndSumValues()}")
 }
 
 object PuzzleData {
