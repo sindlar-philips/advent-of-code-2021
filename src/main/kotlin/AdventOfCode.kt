@@ -11,6 +11,9 @@ fun main() {
 
     println("Day 3, power consumption: ${Day3.calculatePowerConsumption()}")
     println("Day 3, life support rating: ${Day3.calculateLifeSupportRating()}")
+
+    println("Day 4, bingo first: ${Day4.getScoreOfFirstWinningBoard()}")
+    println("Day 4, bingo last: ${Day4.getScoreOfLastWinningBoard()}")
 }
 
 object PuzzleData {
