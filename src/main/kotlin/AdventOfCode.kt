@@ -19,6 +19,9 @@ fun main() {
 
     println("Day 6, number of lanternfish after 80 days: ${Day6.countLanternfishGroups(80)}")
     println("Day 6, number of lanternfish after 256 days: ${Day6.countLanternfishGroups(256)}")
+
+    println("Day 7, minimum fuel required: ${Day7.minimumFuelRequired()}")
+    println("Day 7, minimum fuel required (weighted): ${Day7.minimumFuelRequiredWeighted()}")
 }
 
 object PuzzleData {
