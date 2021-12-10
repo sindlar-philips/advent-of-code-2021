@@ -35,6 +35,9 @@ fun main() {
 
     println("Day 9, sum of risk levels: ${Day9.sumOfRiskLevels()}")
     println("Day 9, product of three largest basin sizes: ${Day9.productOfThreeLargestBasinSizes()}")
+
+    println("Day 10, sum of first illegal characters: ${Day10.sumFirstIllegalChars()}")
+    println("Day 10, middle completion score: ${Day10.getMiddleCompletionScore()}")
 }
 
 object PuzzleData {
