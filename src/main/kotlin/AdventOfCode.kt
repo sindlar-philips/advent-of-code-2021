@@ -1,6 +1,13 @@
 import java.io.File
 
-data class Coordinate(val x: Int, val y: Int)
+data class Coordinate(val x: Int, val y: Int) {
+
+    fun north(): Coordinate = Coordinate(x + 1, y)
+    fun east(): Coordinate = Coordinate(x, y + 1)
+    fun south(): Coordinate = Coordinate(x - 1, y)
+    fun west(): Coordinate = Coordinate(x, y - 1)
+    fun neighbours(): Set<Coordinate> = setOf(north(), east(), south(), west())
+}
 
 fun main() {
 
@@ -25,6 +32,9 @@ fun main() {
 
     println("Day 8, count unique outputs: ${Day8.countUniqueOutputs()}")
     println("Day 8, summed values after fixing wiring: ${Day8.fixWiringAndSumValues()}")
+
+    println("Day 9, sum of risk levels: ${Day9.sumOfRiskLevels()}")
+    println("Day 9, product of three largest basin sizes: ${Day9.productOfThreeLargestBasinSizes()}")
 }
 
 object PuzzleData {
