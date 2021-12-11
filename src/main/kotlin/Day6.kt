@@ -1,9 +1,20 @@
-object Day6  {
+import java.util.stream.Collectors
+
+object Day6 {
 
     private val timers = PuzzleData.load("/day6.txt") { parseTimers(it) }
 
     fun countLanternfishIndividually(days: Int): Long =
-        timers.map { count(days, it) }.reduce { a, b -> a + b }
+        timers.map {
+            println("Counting offspring of $it")
+            count(days, it)
+        }.reduce { a, b -> a + b }
+
+    fun countLanternfishIndividuallyParallelized(days: Int): Long =
+        timers.toList().parallelStream().map {
+            println("Counting offspring of $it")
+            count(days, it)
+        }.collect(Collectors.toList()).reduce { a, b -> a + b }
 
     private fun count(days: Int, timer: Int): Long = if (days <= timer) 1
     else count(days - timer - 1, 6) + count(days - timer - 1, 8)
@@ -28,5 +39,5 @@ object Day6  {
         }
 
     private fun parseTimers(lines: List<String>): Sequence<Int> =
-        lines[0].split(",").map{ it.toInt() }.asSequence()
+        lines[0].split(",").map { it.toInt() }.asSequence()
 }
