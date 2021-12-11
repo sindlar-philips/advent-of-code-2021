@@ -2,11 +2,19 @@ import java.io.File
 
 data class Coordinate(val x: Int, val y: Int) {
 
-    fun north(): Coordinate = Coordinate(x + 1, y)
-    fun east(): Coordinate = Coordinate(x, y + 1)
-    fun south(): Coordinate = Coordinate(x - 1, y)
-    fun west(): Coordinate = Coordinate(x, y - 1)
-    fun neighbours(): Set<Coordinate> = setOf(north(), east(), south(), west())
+    private fun north(): Coordinate = Coordinate(x + 1, y)
+    private fun east(): Coordinate = Coordinate(x, y + 1)
+    private fun south(): Coordinate = Coordinate(x - 1, y)
+    private fun west(): Coordinate = Coordinate(x, y - 1)
+    fun directNeighbours(): Set<Coordinate> = setOf(north(), east(), south(), west())
+
+    private fun northWest(): Coordinate = Coordinate(x + 1, y - 1)
+    private fun northEast(): Coordinate = Coordinate(x + 1, y + 1)
+    private fun southEast(): Coordinate = Coordinate(x - 1, y + 1)
+    private fun southWest(): Coordinate = Coordinate(x - 1, y - 1)
+    fun allNeighbours(): Set<Coordinate> = setOf(
+        north(), east(), south(), west(), northWest(), northEast(), southEast(), southWest()
+    )
 }
 
 fun main() {
@@ -38,6 +46,9 @@ fun main() {
 
     println("Day 10, sum of first illegal characters: ${Day10.sumFirstIllegalChars()}")
     println("Day 10, middle completion score: ${Day10.getMiddleCompletionScore()}")
+
+    println("Day 11, flashes after 100 steps: ${Day11.countFlashesAfter100Steps()}")
+    println("Day 11, first synchronized flash step: ${Day11.findFirstSynchronizedFlashStep()}")
 }
 
 object PuzzleData {

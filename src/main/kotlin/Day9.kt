@@ -21,12 +21,12 @@ object Day9 {
     }
 
     private fun basinNeighbours(coordinate: Coordinate): List<Coordinate> =
-        coordinate.neighbours().filter { heights.containsKey(it) && heights[it]!! < 9 }
+        coordinate.directNeighbours().filter { heights.containsKey(it) && heights[it]!! < 9 }
 
     private fun lowPoints(): List<Coordinate> = heights.keys.filter { it.isLowPoint() }
 
     private fun Coordinate.isLowPoint(): Boolean =
-        this.neighbours().mapNotNull { heights[it] }.all { heights[this]!! < it }
+        this.directNeighbours().mapNotNull { heights[it] }.all { heights[this]!! < it }
 
     private fun parse(lines: List<String>): Map<Coordinate, Int> = lines.mapIndexed { x, heights ->
         heights.chunked(1).mapIndexed { y, height -> Pair(Coordinate(x, y), height.toInt()) }
