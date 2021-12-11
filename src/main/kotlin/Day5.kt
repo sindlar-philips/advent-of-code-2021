@@ -7,7 +7,7 @@ object Day5  {
         fun coordinates(): List<Coordinate> {
             val xOp = steppingOperator(start.x, end.x)
             val yOp = steppingOperator(start.y, end.y)
-            return steps(mutableListOf(), start, end, xOp, yOp)
+            return steps(listOf(), start, end, xOp, yOp)
         }
 
         private fun steppingOperator(n1: Int, n2: Int): (Int) -> Int =
@@ -16,11 +16,10 @@ object Day5  {
             else { n: Int -> n - 1 }
 
         private fun steps(
-            acc: MutableList<Coordinate>, current: Coordinate, end: Coordinate, xOp: (Int) -> Int, yOp: (Int) -> Int
+            acc: List<Coordinate>, current: Coordinate, end: Coordinate, xOp: (Int) -> Int, yOp: (Int) -> Int
         ): List<Coordinate> {
-            acc.add(current)
-            return if (current == end) acc.toList()
-            else steps(acc, Coordinate(xOp(current.x), yOp(current.y)), end, xOp, yOp)
+            return if (current == end) acc + current
+            else steps(acc + current, Coordinate(xOp(current.x), yOp(current.y)), end, xOp, yOp)
         }
 
         override fun toString(): String = "$start -> $end"

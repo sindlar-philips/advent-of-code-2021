@@ -20,9 +20,9 @@ object Day6 {
     else count(days - timer - 1, 6) + count(days - timer - 1, 8)
 
     fun countLanternfishGroups(days: Int): Long {
-        val initialState: Map<Int, Long> = timers.sorted().groupingBy { it }.eachCount().mapValues { (_, n) -> n.toLong() }
+        val initialState: Map<Int, Long> = timers.groupingBy { it }.eachCount().mapValues { (_, n) -> n.toLong() }
         val endState = progress(initialState, days)
-        return endState.values.fold(0) { x, b -> x + b }
+        return endState.values.fold(0) { x, y -> x + y }
     }
 
     private fun progress(state: Map<Int, Long>, days: Int): Map<Int, Long> =
