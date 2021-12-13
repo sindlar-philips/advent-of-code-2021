@@ -10,14 +10,12 @@ object Day9 {
             .sortedByDescending { it.size }.take(3).map { it.size }.reduce { a, b -> a * b }
 
     private fun getBasin(coordinate: Coordinate): Set<Coordinate> {
-        val basin = mutableSetOf<Coordinate>()
-        fun determineBasin(coordinate: Coordinate) {
-            basin.add(coordinate)
-            val newNeighbours = basinNeighbours(coordinate).filterNot { basin.contains(it) }
-            newNeighbours.forEach{ determineBasin(it) }
+        fun determineBasin(lastAdded: List<Coordinate>, basin: List<Coordinate>): List<Coordinate> {
+            val newNeighbours = lastAdded.flatMap { basinNeighbours(it) }.filterNot { basin.contains(it) }
+            return if (newNeighbours.isEmpty()) basin + coordinate
+            else determineBasin(newNeighbours, basin + newNeighbours)
         }
-        determineBasin(coordinate)
-        return basin
+        return determineBasin(listOf(coordinate), listOf(coordinate)).toSet()
     }
 
     private fun basinNeighbours(coordinate: Coordinate): List<Coordinate> =
