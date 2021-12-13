@@ -51,6 +51,10 @@ fun main() {
     println("Day 11, first synchronized flash step: ${Day11.findFirstSynchronizedFlashStep()}")
 
     println("Day 12, number of paths through cave system (new rules): ${Day12.countPaths()}")
+
+    println("Day 13, visible dots after first fold: ${Day13.countVisibleDotsAfterFirstFold()}")
+    println("Day 13, visible dots after folding (printed):")
+    Day13.foldAndPrint()
 }
 
 object PuzzleData {
