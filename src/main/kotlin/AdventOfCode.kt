@@ -55,6 +55,9 @@ fun main() {
     println("Day 13, visible dots after first fold: ${Day13.countVisibleDotsAfterFirstFold()}")
     println("Day 13, visible dots after folding (printed):")
     Day13.foldAndPrint()
+
+    println("Day 14, create polymer and count: ${Day14.createPolymerAndCount(10)}")
+    println("Day 14, just count: ${Day14.justCount(40)}")
 }
 
 object PuzzleData {
