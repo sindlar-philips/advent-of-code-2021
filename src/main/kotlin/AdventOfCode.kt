@@ -58,6 +58,9 @@ fun main() {
 
     println("Day 14, create polymer and count: ${Day14.createPolymerAndCount(10)}")
     println("Day 14, just count: ${Day14.justCount(40)}")
+
+    println("Day 15, least risky path: ${Day15.leastRiskyPath()}")
+    println("Day 15, least risky path (extended): ${Day15.leastRiskyPathExtended()}")
 }
 
 object PuzzleData {
