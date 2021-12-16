@@ -55,22 +55,15 @@ object Day15 {
     }.flatten().toMap()
 
     private fun extendRiskLevels(times: Int): Map<Coordinate, Int> {
-        fun updateRisk(original: Int, add: Int): Int {
-            val updated = original + add
-            return if (updated > 9) updated % 9
-            else updated
-        }
-
         val xMax = riskLevels.maxOf { it.key.x }
         val yMax = riskLevels.maxOf { it.key.y }
-        val horizExt = riskLevels.flatMap { (c, r) ->
-            (0 until times).map { xFactor ->
-                Coordinate(c.x + xFactor * (xMax + 1), c.y) to updateRisk(r, xFactor)
-            }
-        }
-        return horizExt.flatMap { (c, r) ->
-            (0 until times).map { yFactor ->
-                Coordinate(c.x, c.y + yFactor * (yMax + 1)) to updateRisk(r, yFactor)
+        return riskLevels.flatMap { (c, r) ->
+            (0 until times).flatMap { xFactor ->
+                (0 until times).map { yFactor ->
+                    val updatedRisk = r + xFactor + yFactor
+                    Coordinate(c.x + xFactor * (xMax + 1), c.y + yFactor * (yMax + 1)) to
+                            if (updatedRisk > 9) updatedRisk % 9 else updatedRisk
+                }
             }
         }.toMap()
     }
