@@ -1,3 +1,4 @@
+import Day16.eval
 import java.io.File
 
 data class Coordinate(val x: Int, val y: Int) {
@@ -61,6 +62,9 @@ fun main() {
 
     println("Day 15, least risky path: ${Day15.leastRiskyPath()}")
     println("Day 15, least risky path (extended): ${Day15.leastRiskyPathExtended()}")
+
+    println("Day 16, sum of versions: ${Day16.sumVersions()}")
+    println("Day 16, expression: ${Day16.packets.single().eval()}")
 }
 
 object PuzzleData {
