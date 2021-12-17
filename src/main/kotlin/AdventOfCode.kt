@@ -65,6 +65,11 @@ fun main() {
 
     println("Day 16, sum of versions: ${Day16.sumVersions()}")
     println("Day 16, expression: ${Day16.packets.single().eval()}")
+
+    println("Day 17, maximum height")
+    Day17.maxHeight()
+    println("Day 17, number of successful initial velocities")
+    Day17.countVelocities()
 }
 
 object PuzzleData {
