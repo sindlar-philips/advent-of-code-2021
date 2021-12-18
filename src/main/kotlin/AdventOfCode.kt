@@ -70,6 +70,9 @@ fun main() {
     Day17.maxHeight()
     println("Day 17, number of successful initial velocities")
     Day17.countVelocities()
+
+    println("Day 18, snailfish homework, part 1: ${Day18.doHomeworkPart1()}")
+    println("Day 18, snailfish homework, part 2: ${Day18.doHomeworkPart2()}")
 }
 
 object PuzzleData {
