@@ -73,6 +73,9 @@ fun main() {
 
     println("Day 18, snailfish homework, part 1: ${Day18.doHomeworkPart1()}")
     println("Day 18, snailfish homework, part 2: ${Day18.doHomeworkPart2()}")
+
+    println("Day 19, count beacons: ${Day19.countBeacons()}")
+    println("Day 19, maximum Manhattan distance: ${Day19.manhattanDistance()}")
 }
 
 object PuzzleData {
