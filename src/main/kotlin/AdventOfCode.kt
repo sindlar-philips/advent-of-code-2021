@@ -76,6 +76,9 @@ fun main() {
 
     println("Day 19, count beacons: ${Day19.countBeacons()}")
     println("Day 19, maximum Manhattan distance: ${Day19.manhattanDistance()}")
+
+    println("Day 20, 2x enhanced: ${Day20.enhanceAndCountLitPixels(2)}")
+    println("Day 20, 50x enhanced: ${Day20.enhanceAndCountLitPixels(50)}")
 }
 
 object PuzzleData {
