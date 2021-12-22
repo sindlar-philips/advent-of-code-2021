@@ -79,6 +79,9 @@ fun main() {
 
     println("Day 20, 2x enhanced: ${Day20.enhanceAndCountLitPixels(2)}")
     println("Day 20, 50x enhanced: ${Day20.enhanceAndCountLitPixels(50)}")
+
+    println("Day 21: play dice: ${Day21.playDice(5, 6)}")
+    println("Day 21: play quantum dice: ${Day21.quantumDice(5, 6)}")
 }
 
 object PuzzleData {
