@@ -82,6 +82,10 @@ fun main() {
 
     println("Day 21: play dice: ${Day21.playDice(5, 6)}")
     println("Day 21: play quantum dice: ${Day21.quantumDice(5, 6)}")
+
+    println("Day 22: count on cubes (restricted): ${Day22.countOnCubes(true)}")
+    // FIXME: very slow
+    //println("Day 22: count on cubes: ${Day22.countOnCubes()}")
 }
 
 object PuzzleData {
