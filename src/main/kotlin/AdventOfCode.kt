@@ -86,6 +86,9 @@ fun main() {
     println("Day 22: count on cubes (restricted): ${Day22.countOnCubes(true)}")
     // FIXME: very slow
     //println("Day 22: count on cubes: ${Day22.countOnCubes()}")
+
+    println("Day 24, largest model number: ${Day24.findLargestModelNumber()}")
+    println("Day 24, smallest model number: ${Day24.findSmallestModelNumber()}")
 }
 
 object PuzzleData {
