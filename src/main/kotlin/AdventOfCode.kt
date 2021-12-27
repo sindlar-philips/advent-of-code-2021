@@ -87,6 +87,9 @@ fun main() {
     // FIXME: very slow
     //println("Day 22: count on cubes: ${Day22.countOnCubes()}")
 
+    println("Day 23, part 1: managed with good old pen & paper, modify input for part 2 to verify")
+    println("Day 23, part 2: ${Day23.minimumEnergyForGroupingAmphipods()}")
+
     println("Day 24, largest model number: ${Day24.findLargestModelNumber()}")
     println("Day 24, smallest model number: ${Day24.findSmallestModelNumber()}")
 }
