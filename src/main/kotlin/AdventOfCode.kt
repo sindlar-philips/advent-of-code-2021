@@ -92,6 +92,8 @@ fun main() {
 
     println("Day 24, largest model number: ${Day24.findLargestModelNumber()}")
     println("Day 24, smallest model number: ${Day24.findSmallestModelNumber()}")
+
+    println("Day 25, steps for sea cucumber equilibrium: ${Day25.stepsForSeaCucumberEquilibrium()}")
 }
 
 object PuzzleData {
