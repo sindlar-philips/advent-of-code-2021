@@ -6,7 +6,7 @@ data class Displays(val signals: List<String>, val outputs: List<String>)
 
 object Day8 : Runnable {
 
-    private val displays = PuzzleData.load("/day08/day8.txt") { parseDisplays(it) }
+    private val displays = PuzzleData.load("/day08/day08.txt") { parseDisplays(it) }
 
     fun countUniqueOutputs(): Int = displays.map {
         it.outputs.filter { o -> o.length == 2 || o.length == 3 || o.length == 4 || o.length == 7 }

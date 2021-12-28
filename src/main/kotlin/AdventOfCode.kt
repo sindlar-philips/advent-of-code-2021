@@ -1,12 +1,12 @@
-import day01.Day1
-import day02.Day2
-import day03.Day3
+import day01.Day01
+import day02.Day02
+import day03.Day03
 import day04.Day4
 import day05.Day5
-import day06.Day6
-import day07.Day7
+import day06.Day06
+import day07.Day07
 import day08.Day8
-import day09.Day9
+import day09.Day09
 import day10.Day10
 import day11.Day11
 import day12.Day12
@@ -43,7 +43,7 @@ data class Coordinate(val x: Int, val y: Int) {
 }
 
 fun main() = listOf(
-    Day1, Day2, Day3, Day4, Day5, Day6, Day7, Day8, Day9, Day10,
+    Day01, Day02, Day03, Day4, Day5, Day06, Day07, Day8, Day09, Day10,
     Day11, Day12, Day13, Day14, Day15, Day16, Day17, Day18, Day19, Day20,
     Day21, Day22, Day23, Day24, Day25
 ).forEach { it.run() }

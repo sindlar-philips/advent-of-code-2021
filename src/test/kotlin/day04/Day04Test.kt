@@ -3,7 +3,7 @@ package day04
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-internal class Day4Test {
+internal class Day04Test {
 
     @Test
     fun bingo() {

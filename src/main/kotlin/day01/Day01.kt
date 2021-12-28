@@ -2,9 +2,9 @@ package day01
 
 import PuzzleData
 
-object Day1 : Runnable {
+object Day01 : Runnable {
 
-    private val measurements = PuzzleData.load("/day01/day1.txt") { parseMeasurements(it) }
+    private val measurements = PuzzleData.load("/day01/day01.txt") { parseMeasurements(it) }
 
     fun countIncreases(): Int =
         // Initializing "previous" with first element in list because it is not counted

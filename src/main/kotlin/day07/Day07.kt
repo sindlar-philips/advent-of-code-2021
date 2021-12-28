@@ -3,9 +3,9 @@ package day07
 import PuzzleData
 import kotlin.math.abs
 
-object Day7 : Runnable {
+object Day07 : Runnable {
 
-    private val positions = PuzzleData.load("/day07/day7.txt") { parsePositions(it) }
+    private val positions = PuzzleData.load("/day07/day07.txt") { parsePositions(it) }
 
     fun minimumFuelRequired(): Int = minimumFuelRequired(false)
 

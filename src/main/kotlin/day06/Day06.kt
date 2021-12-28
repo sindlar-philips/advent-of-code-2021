@@ -3,9 +3,9 @@ package day06
 import PuzzleData
 import java.util.stream.Collectors
 
-object Day6 : Runnable {
+object Day06 : Runnable {
 
-    private val timers = PuzzleData.load("/day06/day6.txt") { parseTimers(it) }
+    private val timers = PuzzleData.load("/day06/day06.txt") { parseTimers(it) }
 
     fun countLanternfishIndividually(days: Int): Long =
         timers.map {

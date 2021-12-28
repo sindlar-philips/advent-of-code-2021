@@ -4,7 +4,7 @@ import day08.Day8.minusChars
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-internal class Day8Test {
+internal class Day08Test {
 
     @Test
     fun countUniqueOutputs() {

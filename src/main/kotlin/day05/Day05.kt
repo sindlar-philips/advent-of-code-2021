@@ -28,7 +28,7 @@ class Line(private val start: Coordinate, private val end: Coordinate) {
 
 object Day5 : Runnable {
 
-    private val lines = PuzzleData.load("/day05/day5.txt") { parseLines(it) }
+    private val lines = PuzzleData.load("/day05/day05.txt") { parseLines(it) }
 
     fun countCoordinatesInTwoOrMoreLines(): Int =
         lines.flatMap { it.coordinates() }.groupingBy { it }.eachCount().filter { it.value > 1 }.size

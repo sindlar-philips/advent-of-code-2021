@@ -3,9 +3,9 @@ package day09
 import Coordinate
 import PuzzleData
 
-object Day9 : Runnable {
+object Day09 : Runnable {
 
-    private val heights = PuzzleData.load("/day09/day9.txt") { parse(it) }
+    private val heights = PuzzleData.load("/day09/day09.txt") { parse(it) }
 
     fun sumOfRiskLevels(): Int =
         lowPoints().sumOf { heights[it]!! + 1 }
@@ -29,7 +29,7 @@ object Day9 : Runnable {
     private fun lowPoints(): List<Coordinate> = heights.keys.filter { it.isLowPoint() }
 
     private fun Coordinate.isLowPoint(): Boolean =
-        this.directNeighbours().mapNotNull { day09.Day9.heights[it] }.all { day09.Day9.heights[this]!! < it }
+        this.directNeighbours().mapNotNull { day09.Day09.heights[it] }.all { day09.Day09.heights[this]!! < it }
 
     private fun parse(lines: List<String>): Map<Coordinate, Int> = lines.mapIndexed { x, heights ->
         heights.chunked(1).mapIndexed { y, height -> Pair(Coordinate(x, y), height.toInt()) }

@@ -2,9 +2,9 @@ package day03
 
 import PuzzleData
 
-object Day3 : Runnable {
+object Day03 : Runnable {
 
-    private val binaryNumbers = PuzzleData.load("/day03/day3.txt") { parseBinaryNumbers(it) }
+    private val binaryNumbers = PuzzleData.load("/day03/day03.txt") { parseBinaryNumbers(it) }
 
     fun calculatePowerConsumption(): Int {
         val gammaRate = getGammaRate(binaryNumbers)

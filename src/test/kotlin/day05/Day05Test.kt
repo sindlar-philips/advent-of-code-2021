@@ -3,7 +3,7 @@ package day05
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-internal class Day5Test {
+internal class Day05Test {
 
     @Test
     fun coordinatesInTwoOrMoreLines() {

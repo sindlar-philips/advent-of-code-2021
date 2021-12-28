@@ -2,9 +2,9 @@ package day02
 
 import PuzzleData
 
-object Day2 : Runnable {
+object Day02 : Runnable {
 
-    private val commands = PuzzleData.load("/day02/day2.txt") { parseCommands(it) }
+    private val commands = PuzzleData.load("/day02/day02.txt") { parseCommands(it) }
 
     fun determinePosition(): Pair<Int, Int> =
         determinePosition(commands, Triple(0, 0, 0))

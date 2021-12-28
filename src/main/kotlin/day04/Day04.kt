@@ -41,8 +41,8 @@ object Day4 : Runnable {
     private val boards = loadBoards()
 
     private fun loadBoards(): List<Board> {
-        val numbers = PuzzleData.load("/day04/day4-numbers.txt") { parseNumbers(it) }
-        return PuzzleData.load("/day04/day4-boards.txt") { parseBoards(it, numbers) }
+        val numbers = PuzzleData.load("/day04/day04-numbers.txt") { parseNumbers(it) }
+        return PuzzleData.load("/day04/day04-boards.txt") { parseBoards(it, numbers) }
     }
 
     fun getScoreOfFirstWinningBoard(): Int =
