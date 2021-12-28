@@ -24,6 +24,13 @@ class Alu(w: Int = 0, x: Int = 0, y: Int = 0, z: Int = 0) {
         return Vars(vars["w"]!!, vars["x"]!!, vars["y"]!!, vars["z"]!!)
     }
 
+    fun reset(w: Int = 0, x: Int = 0, y: Int = 0, z: Int = 0) {
+        vars["w"] = w
+        vars["x"] = x
+        vars["y"] = y
+        vars["z"] = z
+    }
+
     private fun process(ins: Instruction) {
         when (ins) {
             is Inp -> vars[ins.a] = input.removeFirst()
@@ -102,19 +109,21 @@ object ArithmeticLogicUnit : Runnable {
         } else {
             print("${chunks.size}, ")
             val chunk = chunks.first()
-            val zToPartialModelNumbers = acc.flatMap { (oldZ, partialModelNumber) ->
-                validInputs.parallelStream().map { input ->
-                    val newZ = getZ(oldZ, input, chunk)
+            val zToPartialModelNumbers = validInputs.parallelStream().map { input ->
+                val alu = Alu()
+                acc.map { (oldZ, partialModelNumber) ->
+                    val newZ = getZ(oldZ, input, chunk, alu)
                     newZ to partialModelNumber + input
-                }.collect(Collectors.toList())
-            }.groupBy { it.first }.mapValues { (_, pairs) -> pairs.map { it.second } }
+                }
+            }.collect(Collectors.toList()).flatten().groupBy { it.first }
+                .mapValues { (_, pairs) -> pairs.map { it.second } }
                 .mapValues { (_, value) -> selector(value) }
             findModelNumber(firstDigit, chunks.drop(1), selector, zToPartialModelNumbers)
         }
     }
 
-    private fun getZ(initialZ: Int, inputNumber: Int, instructions: List<Instruction>): Int {
-        val alu = Alu(z = initialZ)
+    private fun getZ(initialZ: Int, inputNumber: Int, instructions: List<Instruction>, alu: Alu = Alu()): Int {
+        alu.reset(z = initialZ)
         val vars = alu.runProgram(listOf(inputNumber), instructions)
         return vars.z
     }
