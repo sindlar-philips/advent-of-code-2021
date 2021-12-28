@@ -1,34 +1,34 @@
-import day01.Day01
-import day02.Day02
-import day03.Day03
-import day04.Day4
-import day05.Day5
-import day06.Day06
-import day07.Day07
-import day08.Day8
-import day09.Day09
-import day10.Day10
-import day11.Day11
-import day12.Day12
-import day13.Day13
-import day14.Day14
-import day15.Day15
-import day16.Day16
-import day17.Day17
-import day18.Day18
-import day19.Day19
-import day20.Day20
-import day21.Day21
-import day22.Day22
-import day23.Day23
-import day24.Day24
-import day25.Day25
+import day01.SonarSweep
+import day02.Dive
+import day03.BinaryDiagnostic
+import day04.GiantSquid
+import day05.HydrothermalVenture
+import day06.Lanternfish
+import day07.TheTreacheryOfWhales
+import day08.SevenSegmentSearch
+import day09.SmokeBasin
+import day10.SyntaxScoring
+import day11.DumboOctopus
+import day12.PassagePathing
+import day13.TransparentOrigami
+import day14.ExtendedPolymerization
+import day15.Chiton
+import day16.PacketDecoder
+import day17.TrickShot
+import day18.Snailfish
+import day19.BeaconScanner
+import day20.TrenchMap
+import day21.DiracDice
+import day22.ReactorReboot
+import day23.Amphipods
+import day24.ArithmeticLogicUnit
+import day25.SeaCucumber
 import java.io.File
 
 fun main() = listOf(
-    Day01, Day02, Day03, Day4, Day5, Day06, Day07, Day8, Day09, Day10,
-    Day11, Day12, Day13, Day14, Day15, Day16, Day17, Day18, Day19, Day20,
-    Day21, Day22, Day23, Day24, Day25
+    SonarSweep, Dive, BinaryDiagnostic, GiantSquid, HydrothermalVenture, Lanternfish, TheTreacheryOfWhales, SevenSegmentSearch, SmokeBasin, SyntaxScoring,
+    DumboOctopus, PassagePathing, TransparentOrigami, ExtendedPolymerization, Chiton, PacketDecoder, TrickShot, Snailfish, BeaconScanner, TrenchMap,
+    DiracDice, ReactorReboot, Amphipods, ArithmeticLogicUnit, SeaCucumber
 ).forEach { it.run() }
 
 object PuzzleData {
