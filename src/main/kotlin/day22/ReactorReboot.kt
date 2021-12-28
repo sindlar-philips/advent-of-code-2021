@@ -3,6 +3,8 @@ package day22
 import PuzzleData
 import day19.Coordinate3D
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 data class Instruction(val on: Boolean, val cuboid: Cuboid)
 data class Cuboid(val x: IntRange, val y: IntRange, val z: IntRange) {
@@ -17,15 +19,17 @@ data class Cuboid(val x: IntRange, val y: IntRange, val z: IntRange) {
         }.toSet()
 
     fun intersect(other: Cuboid): Cuboid? {
-        val xs: Set<Int> = x.intersect(other.x)
-        val ys: Set<Int> = y.intersect(other.y)
-        val zs: Set<Int> = z.intersect(other.z)
-        return if (xs.isEmpty() || ys.isEmpty() || zs.isEmpty()) null
-        else Cuboid(
-            xs.minOf { it }..xs.maxOf { it },
-            ys.minOf { it }..ys.maxOf { it },
-            zs.minOf { it }..zs.maxOf { it }
-        )
+        val minX = max(x.first, other.x.first)
+        val maxX = min(x.last, other.x.last)
+        val minY = max(y.first, other.y.first)
+        val maxY = min(y.last, other.y.last)
+        val minZ = max(z.first, other.z.first)
+        val maxZ = min(z.last, other.z.last)
+        val cuboidsIntersect = listOf(minX, maxX).all { x.contains(it) && other.x.contains(it) } &&
+                listOf(minY, maxY).all { y.contains(it) && other.y.contains(it) } &&
+                listOf(minZ, maxZ).all { z.contains(it) && other.z.contains(it) }
+        return if (!cuboidsIntersect) null
+        else Cuboid(minX..maxX, minY..maxY, minZ..maxZ)
     }
 
     fun remove(other: Cuboid): Set<Cuboid> {
@@ -70,14 +74,13 @@ object ReactorReboot : Runnable {
                 return process(instructions.drop(1), result)
             }
         }
-
         val onCuboids = process(instructions, listOf())
         val normalized = normalize(onCuboids, listOf())
         return normalized.sumOf { it.volume() }
     }
 
     private fun normalize(onCuboids: List<Cuboid>, normalized: List<Cuboid>): List<Cuboid> {
-        //println("Normalizing, ${onCuboids.size} to go")
+        //println("Normalizing, ${onCuboids.size} to go, ${normalized.size} normalized")
         if (onCuboids.isEmpty()) return normalized
         val head = onCuboids.first()
         val tail = onCuboids.drop(1)
@@ -106,8 +109,7 @@ object ReactorReboot : Runnable {
         }
 
     override fun run() {
-        println("Day 22: count on cubes (restricted): ${countOnCubes(true)}")
-        // FIXME: very slow
-        //println("Day 22: count on cubes: ${countOnCubes()}")
+        println("Day 22: count ON cubes (restricted): ${countOnCubes(true)}")
+        println("Day 22: count ON cubes (full): ${countOnCubes()}")
     }
 }

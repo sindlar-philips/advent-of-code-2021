@@ -27,8 +27,9 @@ import java.io.File
 import kotlin.system.measureTimeMillis
 
 fun main() = listOf(
-    SonarSweep, Dive, BinaryDiagnostic, GiantSquid, HydrothermalVenture, Lanternfish, TheTreacheryOfWhales, SevenSegmentSearch, SmokeBasin, SyntaxScoring,
-    DumboOctopus, PassagePathing, TransparentOrigami, ExtendedPolymerization, Chiton, PacketDecoder, TrickShot, Snailfish, BeaconScanner, TrenchMap,
+    SonarSweep, Dive, BinaryDiagnostic, GiantSquid, HydrothermalVenture, Lanternfish, TheTreacheryOfWhales,
+    SevenSegmentSearch, SmokeBasin, SyntaxScoring, DumboOctopus, PassagePathing, TransparentOrigami,
+    ExtendedPolymerization, Chiton, PacketDecoder, TrickShot, Snailfish, BeaconScanner, TrenchMap,
     DiracDice, ReactorReboot, Amphipods, ArithmeticLogicUnit, SeaCucumber
 ).forEach { puzzle ->
     val name = puzzle.javaClass.simpleName
