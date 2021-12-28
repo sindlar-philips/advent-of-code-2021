@@ -4,38 +4,10 @@ import PuzzleData
 import kotlin.math.max
 import kotlin.math.min
 
-object Day16 {
+interface Packet {
+    val version: Int
 
-    val packets = PuzzleData.load("/day16/day16.txt") { parse(it) }
-
-    interface Packet {
-        val version: Int
-    }
-
-    abstract class OperatorPacket(
-        override val version: Int,
-        open val name: String,
-        val sub: List<Packet>
-    ) : Packet {
-        override fun toString(): String =
-            "$name(${sub.joinToString(", ")})"
-    }
-
-    data class LiteralPacket(override val version: Int, val value: Long) : Packet {
-        override fun toString(): String = value.toString()
-    }
-
-    class SumPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "plus", sub)
-    class ProductPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "times", sub)
-    class MinimumPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "min", sub)
-    class MaximumPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "max", sub)
-    class GreaterThanPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "gt", sub)
-    class LessThanPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "lt", sub)
-    class EqualToPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "eq", sub)
-
-    fun sumVersions(): Int = getVersions(packets).sumOf { it }
-
-    fun Packet.eval(): Long =
+    fun eval(): Long =
         when (this) {
             is LiteralPacket -> this.value
             is SumPacket -> this.sub.sumOf { it.eval() }
@@ -47,6 +19,34 @@ object Day16 {
             is EqualToPacket -> this.sub.map { it.eval() }.reduce { a, b -> if (a == b) 1 else 0 }
             else -> throw Exception("Unknown packet type!")
         }
+}
+
+abstract class OperatorPacket(
+    override val version: Int,
+    open val name: String,
+    val sub: List<Packet>
+) : Packet {
+    override fun toString(): String =
+        "$name(${sub.joinToString(", ")})"
+}
+
+data class LiteralPacket(override val version: Int, val value: Long) : Packet {
+    override fun toString(): String = value.toString()
+}
+
+class SumPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "plus", sub)
+class ProductPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "times", sub)
+class MinimumPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "min", sub)
+class MaximumPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "max", sub)
+class GreaterThanPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "gt", sub)
+class LessThanPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "lt", sub)
+class EqualToPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "eq", sub)
+
+object Day16 {
+
+    val packets = PuzzleData.load("/day16/day16.txt") { parse(it) }
+
+    fun sumVersions(): Int = getVersions(packets).sumOf { it }
 
     internal fun getVersions(packets: List<Packet>): List<Int> =
         packets.flatMap { packet ->

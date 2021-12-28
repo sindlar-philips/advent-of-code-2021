@@ -4,13 +4,13 @@ import Coordinate
 import PuzzleData
 import kotlin.math.abs
 
+class DeadEndException : Exception("Dead end!")
+
+data class Node(val coordinate: Coordinate, val parent: Node?, val g: Int, val h: Int, val f: Int = g + h)
+
 object Day15 {
 
     private val riskLevels = PuzzleData.load("/day15/day15.txt") { parse(it) }
-
-    class DeadEndException : Exception("Dead end!")
-
-    data class Node(val coordinate: Coordinate, val parent: Node?, val g: Int, val h: Int, val f: Int = g + h)
 
     fun leastRiskyPath(): Int {
         val start = Coordinate(0, 0)

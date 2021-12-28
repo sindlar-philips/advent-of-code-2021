@@ -3,9 +3,9 @@ package day21
 import java.lang.Integer.min
 import java.math.BigInteger
 
-object Day21 {
+data class GameState(val position1: Int, val score1: Int, val position2: Int, val score2: Int, val rolls: Int)
 
-    data class GameState(val position1: Int, val score1: Int, val position2: Int, val score2: Int, val rolls: Int)
+object Day21 {
 
     fun <T> Iterator<T>.asIterable(): Iterable<T> = object : Iterable<T> {
         private val iter = this@asIterable

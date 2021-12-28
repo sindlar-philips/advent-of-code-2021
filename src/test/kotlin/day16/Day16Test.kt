@@ -1,7 +1,5 @@
 package day16
 
-import day16.Day16.LiteralPacket
-import day16.Day16.eval
 import day16.Day16.getPackets
 import day16.Day16.getVersions
 import day16.Day16.hexToBin

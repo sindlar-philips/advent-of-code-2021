@@ -1,9 +1,6 @@
 package day23
 
 import Coordinate
-import day23.Day23.A
-import day23.Day23.B
-import day23.Day23.State
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test

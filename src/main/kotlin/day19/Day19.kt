@@ -3,32 +3,32 @@ package day19
 import PuzzleData
 import kotlin.math.abs
 
+data class Coordinate3D(val x: Int, val y: Int, val z: Int) {
+    fun xRotation(): Coordinate3D = Coordinate3D(x, -z, y)
+    fun yRotation(): Coordinate3D = Coordinate3D(-z, y, x)
+    fun zRotation(): Coordinate3D = Coordinate3D(-y, x, z)
+}
+
+data class Scanner(val id: Int, val position: Coordinate3D, val beacons: List<Coordinate3D>) {
+    private fun xRotation(): Scanner = Scanner(id, position, beacons.map { it.xRotation() })
+    private fun yRotation(): Scanner = Scanner(id, position, beacons.map { it.yRotation() })
+    private fun zRotation(): Scanner = Scanner(id, position, beacons.map { it.zRotation() })
+
+    fun allOrientations(): Set<Scanner> {
+        val xRotations = listOf(this, xRotation(), xRotation().xRotation(), xRotation().xRotation().xRotation())
+        val xyRotations = xRotations.flatMap {
+            listOf(it, it.yRotation(), it.yRotation().yRotation(), it.yRotation().yRotation().yRotation())
+        }
+        val xyzRotations = xyRotations.flatMap {
+            listOf(it, it.zRotation(), it.zRotation().zRotation(), it.zRotation().zRotation().zRotation())
+        }
+        return xyzRotations.toSet()
+    }
+}
+
 object Day19 {
 
     internal val scanners = PuzzleData.load("/day19/day19.txt") { parse(it) }
-
-    data class Coordinate3D(val x: Int, val y: Int, val z: Int) {
-        fun xRotation(): Coordinate3D = Coordinate3D(x, -z, y)
-        fun yRotation(): Coordinate3D = Coordinate3D(-z, y, x)
-        fun zRotation(): Coordinate3D = Coordinate3D(-y, x, z)
-    }
-
-    data class Scanner(val id: Int, val position: Coordinate3D, val beacons: List<Coordinate3D>) {
-        private fun xRotation(): Scanner = Scanner(id, position, beacons.map { it.xRotation() })
-        private fun yRotation(): Scanner = Scanner(id, position, beacons.map { it.yRotation() })
-        private fun zRotation(): Scanner = Scanner(id, position, beacons.map { it.zRotation() })
-
-        fun allOrientations(): Set<Scanner> {
-            val xRotations = listOf(this, xRotation(), xRotation().xRotation(), xRotation().xRotation().xRotation())
-            val xyRotations = xRotations.flatMap {
-                listOf(it, it.yRotation(), it.yRotation().yRotation(), it.yRotation().yRotation().yRotation())
-            }
-            val xyzRotations = xyRotations.flatMap {
-                listOf(it, it.zRotation(), it.zRotation().zRotation(), it.zRotation().zRotation().zRotation())
-            }
-            return xyzRotations.toSet()
-        }
-    }
 
     fun countBeacons(): Int {
         val normalizedScanners = getNormalizedScanners()

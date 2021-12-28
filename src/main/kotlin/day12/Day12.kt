@@ -2,41 +2,41 @@ package day12
 
 import PuzzleData
 
+data class Cave(private val name: String) {
+    fun isEnd(): Boolean = name == "end"
+    fun isLarge(): Boolean = !isSmall()
+    fun isSmall(): Boolean = name.lowercase() == name
+    fun isStart(): Boolean = name == "start"
+    override fun toString(): String = name
+}
+
+data class Connection(val from: Cave, val to: Cave) {
+    fun follows(other: Connection): Boolean = from == other.to
+}
+
+data class Path(val connections: List<Connection>) {
+
+    fun accepts(connection: Connection): Boolean =
+        if (!connection.follows(connections.last())) false
+        else if (connection.to.isStart() || connection.from.isEnd()) false
+        else if (connection.to.isEnd() || connection.to.isLarge()) true
+        else {
+            val visitsToSmallCaves = visitedCaves().filter { it.isSmall() }.groupingBy { it }.eachCount()
+            !visitsToSmallCaves.containsKey(connection.to) ||
+                    visitsToSmallCaves.values.none { it > 1 }
+        }
+
+    fun ended(): Boolean = connections.last().to.isEnd()
+
+    private fun visitedCaves(): List<Cave> =
+        connections.flatMap { if (it.from.isStart()) listOf(it.from, it.to) else listOf(it.to) }
+
+    override fun toString() = "${visitedCaves()}"
+}
+
 object Day12 {
 
     private val connections = PuzzleData.load("/day12/day12.txt") { parse(it) }
-
-    data class Cave(private val name: String) {
-        fun isEnd(): Boolean = name == "end"
-        fun isLarge(): Boolean = !isSmall()
-        fun isSmall(): Boolean = name.lowercase() == name
-        fun isStart(): Boolean = name == "start"
-        override fun toString(): String = name
-    }
-
-    data class Connection(val from: Cave, val to: Cave) {
-        fun follows(other: Connection): Boolean = from == other.to
-    }
-
-    data class Path(val connections: List<Connection>) {
-
-        fun accepts(connection: Connection): Boolean =
-            if (!connection.follows(connections.last())) false
-            else if (connection.to.isStart() || connection.from.isEnd()) false
-            else if (connection.to.isEnd() || connection.to.isLarge()) true
-            else {
-                val visitsToSmallCaves = visitedCaves().filter { it.isSmall() }.groupingBy { it }.eachCount()
-                !visitsToSmallCaves.containsKey(connection.to) ||
-                        visitsToSmallCaves.values.none { it > 1 }
-            }
-
-        fun ended(): Boolean = connections.last().to.isEnd()
-
-        private fun visitedCaves(): List<Cave> =
-            connections.flatMap { if (it.from.isStart()) listOf(it.from, it.to) else listOf(it.to) }
-
-        override fun toString() = "${visitedCaves()}"
-    }
 
     fun countPaths(): Int {
         val starts = connections.filter { it.from.isStart() }

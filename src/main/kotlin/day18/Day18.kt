@@ -4,24 +4,24 @@ import PuzzleData
 import kotlin.math.ceil
 import kotlin.math.floor
 
+interface SnailFishNumber {
+    fun magnitude(): Long
+}
+
+data class SnailFishLiteral(val value: Long) : SnailFishNumber {
+    override fun magnitude(): Long = value
+}
+
+data class SnailFishPair(
+    val left: SnailFishNumber,
+    val right: SnailFishNumber
+) : SnailFishNumber {
+    override fun magnitude(): Long = 3 * left.magnitude() + 2 * right.magnitude()
+}
+
 object Day18 {
 
     private val data = PuzzleData.load("/day18/day18.txt") { parse(it) }
-
-    interface SnailFishNumber {
-        fun magnitude(): Long
-    }
-
-    data class SnailFishLiteral(val value: Long) : SnailFishNumber {
-        override fun magnitude(): Long = value
-    }
-
-    data class SnailFishPair(
-        val left: SnailFishNumber,
-        val right: SnailFishNumber
-    ) : SnailFishNumber {
-        override fun magnitude(): Long = 3 * left.magnitude() + 2 * right.magnitude()
-    }
 
     fun doHomeworkPart1(): Long {
         val summed = snailFishSum(data)

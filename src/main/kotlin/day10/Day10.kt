@@ -2,12 +2,12 @@ package day10
 
 import PuzzleData
 
+class InvalidCharacterException(val invalidCharacter: Char) : Exception("Invalid character: $invalidCharacter")
+
 object Day10 {
 
     private val lines = PuzzleData.load("/day10/day10.txt") { parse(it) }
     private val validChars = setOf(Pair('(', ')'), Pair('[', ']'), Pair('{', '}'), Pair('<', '>'))
-
-    class InvalidCharacterException(val invalidCharacter: Char) : Exception("Invalid character: $invalidCharacter")
 
     fun sumFirstIllegalChars(): Int =
         lines.mapNotNull {

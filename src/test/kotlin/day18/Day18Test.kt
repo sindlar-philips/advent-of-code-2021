@@ -1,7 +1,5 @@
 package day18
 
-import day18.Day18.SnailFishLiteral
-import day18.Day18.SnailFishPair
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

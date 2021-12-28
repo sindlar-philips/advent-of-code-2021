@@ -1,12 +1,5 @@
 package day24
 
-import day24.Day24.Add
-import day24.Day24.Alu
-import day24.Day24.Div
-import day24.Day24.Eql
-import day24.Day24.Inp
-import day24.Day24.Mod
-import day24.Day24.Mul
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

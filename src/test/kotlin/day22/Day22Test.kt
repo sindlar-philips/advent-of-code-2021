@@ -1,6 +1,5 @@
 package day22
 
-import day22.Day22.Cuboid
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test

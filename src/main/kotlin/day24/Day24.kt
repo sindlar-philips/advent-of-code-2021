@@ -3,50 +3,50 @@ package day24
 import PuzzleData
 import java.util.stream.Collectors
 
+interface Instruction
+data class Inp(val a: String) : Instruction
+data class Add(val a: String, val b: String) : Instruction
+data class Mul(val a: String, val b: String) : Instruction
+data class Div(val a: String, val b: String) : Instruction
+data class Mod(val a: String, val b: String) : Instruction
+data class Eql(val a: String, val b: String) : Instruction
+
+data class Vars(val w: Int, val x: Int, val y: Int, val z: Int)
+
+class Alu(w: Int = 0, x: Int = 0, y: Int = 0, z: Int = 0) {
+
+    private var input = mutableListOf<Int>()
+    private val vars = mutableMapOf("w" to w, "x" to x, "y" to y, "z" to z)
+
+    fun runProgram(inputNumbers: List<Int>, instructions: List<Instruction>): Vars {
+        input = inputNumbers.toMutableList()
+        instructions.forEach { process(it) }
+        return Vars(vars["w"]!!, vars["x"]!!, vars["y"]!!, vars["z"]!!)
+    }
+
+    private fun process(ins: Instruction) {
+        when (ins) {
+            is Inp -> vars[ins.a] = input.removeFirst()
+            is Add -> vars[ins.a] = vars[ins.a]!! + toInt(ins.b)
+            is Mul -> vars[ins.a] = vars[ins.a]!! * toInt(ins.b)
+            is Div -> vars[ins.a] = vars[ins.a]!!.floorDiv(toInt(ins.b))
+            is Mod -> vars[ins.a] = vars[ins.a]!!.mod(toInt(ins.b))
+            is Eql -> vars[ins.a] = if (vars[ins.a]!! == toInt(ins.b)) 1 else 0
+            else -> throw Exception("Unexpected instruction: $ins")
+        }
+    }
+
+    private fun toInt(b: String): Int =
+        try {
+            b.toInt()
+        } catch (_: NumberFormatException) {
+            vars[b]!!
+        }
+}
+
 object Day24 {
 
     internal val monadInstructions = PuzzleData.load("/day24/day24.txt") { parse(it) }
-
-    interface Instruction
-    data class Inp(val a: String) : Instruction
-    data class Add(val a: String, val b: String) : Instruction
-    data class Mul(val a: String, val b: String) : Instruction
-    data class Div(val a: String, val b: String) : Instruction
-    data class Mod(val a: String, val b: String) : Instruction
-    data class Eql(val a: String, val b: String) : Instruction
-
-    data class Vars(val w: Int, val x: Int, val y: Int, val z: Int)
-
-    class Alu(w: Int = 0, x: Int = 0, y: Int = 0, z: Int = 0) {
-
-        private var input = mutableListOf<Int>()
-        private val vars = mutableMapOf("w" to w, "x" to x, "y" to y, "z" to z)
-
-        fun runProgram(inputNumbers: List<Int>, instructions: List<Instruction>): Vars {
-            input = inputNumbers.toMutableList()
-            instructions.forEach { process(it) }
-            return Vars(vars["w"]!!, vars["x"]!!, vars["y"]!!, vars["z"]!!)
-        }
-
-        private fun process(ins: Instruction) {
-            when (ins) {
-                is Inp -> vars[ins.a] = input.removeFirst()
-                is Add -> vars[ins.a] = vars[ins.a]!! + toInt(ins.b)
-                is Mul -> vars[ins.a] = vars[ins.a]!! * toInt(ins.b)
-                is Div -> vars[ins.a] = vars[ins.a]!!.floorDiv(toInt(ins.b))
-                is Mod -> vars[ins.a] = vars[ins.a]!!.mod(toInt(ins.b))
-                is Eql -> vars[ins.a] = if (vars[ins.a]!! == toInt(ins.b)) 1 else 0
-                else -> throw Exception("Unexpected instruction: $ins")
-            }
-        }
-
-        private fun toInt(b: String): Int =
-            try {
-                b.toInt()
-            } catch (_: NumberFormatException) {
-                vars[b]!!
-            }
-    }
 
     fun findLargestModelNumber(): List<Int> {
         val chunks = monadInstructions.chunked(18)

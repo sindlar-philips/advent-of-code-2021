@@ -2,7 +2,7 @@ package day01
 
 import PuzzleData
 
-object Day1  {
+object Day1 {
 
     private val measurements = PuzzleData.load("/day01/day1.txt") { parseMeasurements(it) }
 

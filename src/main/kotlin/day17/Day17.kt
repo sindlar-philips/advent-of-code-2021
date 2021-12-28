@@ -4,12 +4,12 @@ import Coordinate
 import PuzzleData
 import java.util.stream.Collectors
 
+data class Trajectory(val vInit: Velocity, val path: List<Coordinate>)
+data class Velocity(val x: Int, val y: Int)
+
 object Day17 {
 
     private val targetArea = PuzzleData.load("/day17/day17.txt") { parseTargetArea(it) }
-
-    data class Trajectory(val vInit: Velocity, val path: List<Coordinate>)
-    data class Velocity(val x: Int, val y: Int)
 
     fun maxHeight(): Int {
         val trajectories = giveItYourBestShot(0, 20, 0, 250)

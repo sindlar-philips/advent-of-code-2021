@@ -1,62 +1,62 @@
 package day22
 
 import PuzzleData
-import day19.Day19
+import day19.Coordinate3D
 import kotlin.math.abs
+
+data class Instruction(val on: Boolean, val cuboid: Cuboid)
+data class Cuboid(val x: IntRange, val y: IntRange, val z: IntRange) {
+
+    fun coordinates(): Set<Coordinate3D> =
+        x.flatMap { x ->
+            y.flatMap { y ->
+                z.map { z ->
+                    Coordinate3D(x, y, z)
+                }
+            }
+        }.toSet()
+
+    fun intersect(other: Cuboid): Cuboid? {
+        val xs: Set<Int> = x.intersect(other.x)
+        val ys: Set<Int> = y.intersect(other.y)
+        val zs: Set<Int> = z.intersect(other.z)
+        return if (xs.isEmpty() || ys.isEmpty() || zs.isEmpty()) null
+        else Cuboid(
+            xs.minOf { it }..xs.maxOf { it },
+            ys.minOf { it }..ys.maxOf { it },
+            zs.minOf { it }..zs.maxOf { it }
+        )
+    }
+
+    fun remove(other: Cuboid): Set<Cuboid> {
+        val int = intersect(other) ?: return setOf(this)
+        val rest = mutableSetOf<Cuboid>()
+        if (x.first < int.x.first)
+            rest.add(Cuboid(x.first until int.x.first, y, z))
+        if (x.last > int.x.last)
+            rest.add(Cuboid(int.x.last + 1..x.last, y, z))
+        if (y.first < int.y.first)
+            rest.add(Cuboid(int.x, y.first until int.y.first, z))
+        if (y.last > int.y.last)
+            rest.add(Cuboid(int.x, int.y.last + 1..y.last, z))
+        if (z.first < int.z.first)
+            rest.add(Cuboid(int.x, int.y, z.first until int.z.first))
+        if (z.last > int.z.last)
+            rest.add(Cuboid(int.x, int.y, int.z.last + 1..z.last))
+        return rest.toSet()
+    }
+
+    fun volume(): Long {
+        val xWidth = abs(x.last - x.first) + 1L
+        val yWidth = abs(y.last - y.first) + 1L
+        val zWidth = abs(z.last - z.first) + 1L
+        return xWidth * yWidth * zWidth
+    }
+}
 
 object Day22 {
 
     private val instructions = PuzzleData.load("/day22/day22.txt") { parse(it) }
-
-    data class Instruction(val on: Boolean, val cuboid: Cuboid)
-    data class Cuboid(val x: IntRange, val y: IntRange, val z: IntRange) {
-
-        fun coordinates(): Set<Day19.Coordinate3D> =
-            x.flatMap { x ->
-                y.flatMap { y ->
-                    z.map { z ->
-                        Day19.Coordinate3D(x, y, z)
-                    }
-                }
-            }.toSet()
-
-        fun intersect(other: Cuboid): Cuboid? {
-            val xs: Set<Int> = x.intersect(other.x)
-            val ys: Set<Int> = y.intersect(other.y)
-            val zs: Set<Int> = z.intersect(other.z)
-            return if (xs.isEmpty() || ys.isEmpty() || zs.isEmpty()) null
-            else Cuboid(
-                xs.minOf { it }..xs.maxOf { it },
-                ys.minOf { it }..ys.maxOf { it },
-                zs.minOf { it }..zs.maxOf { it }
-            )
-        }
-
-        fun remove(other: Cuboid): Set<Cuboid> {
-            val int = intersect(other) ?: return setOf(this)
-            val rest = mutableSetOf<Cuboid>()
-            if (x.first < int.x.first)
-                rest.add(Cuboid(x.first until int.x.first, y, z))
-            if (x.last > int.x.last)
-                rest.add(Cuboid(int.x.last + 1..x.last, y, z))
-            if (y.first < int.y.first)
-                rest.add(Cuboid(int.x, y.first until int.y.first, z))
-            if (y.last > int.y.last)
-                rest.add(Cuboid(int.x, int.y.last + 1..y.last, z))
-            if (z.first < int.z.first)
-                rest.add(Cuboid(int.x, int.y, z.first until int.z.first))
-            if (z.last > int.z.last)
-                rest.add(Cuboid(int.x, int.y, int.z.last + 1..z.last))
-            return rest.toSet()
-        }
-
-        fun volume(): Long {
-            val xWidth = abs(x.last - x.first) + 1L
-            val yWidth = abs(y.last - y.first) + 1L
-            val zWidth = abs(z.last - z.first) + 1L
-            return xWidth * yWidth * zWidth
-        }
-    }
 
     fun countOnCubes(isRestricted: Boolean = false): Long {
         tailrec fun process(instructions: List<Instruction>, onCuboids: List<Cuboid>): List<Cuboid> {

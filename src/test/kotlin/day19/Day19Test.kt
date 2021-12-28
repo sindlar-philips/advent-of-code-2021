@@ -1,7 +1,5 @@
 package day19
 
-import day19.Day19.Coordinate3D
-import day19.Day19.Scanner
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
