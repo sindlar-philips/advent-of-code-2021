@@ -2,7 +2,6 @@ package day22
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class ReactorRebootTest {
@@ -13,7 +12,6 @@ internal class ReactorRebootTest {
     }
 
     @Test
-    @Disabled("Too slow!")
     fun counOnCubes() {
         assertEquals(2758514936282235, ReactorReboot.countOnCubes())
     }
