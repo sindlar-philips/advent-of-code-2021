@@ -24,12 +24,18 @@ import day23.Amphipods
 import day24.ArithmeticLogicUnit
 import day25.SeaCucumber
 import java.io.File
+import kotlin.system.measureTimeMillis
 
 fun main() = listOf(
     SonarSweep, Dive, BinaryDiagnostic, GiantSquid, HydrothermalVenture, Lanternfish, TheTreacheryOfWhales, SevenSegmentSearch, SmokeBasin, SyntaxScoring,
     DumboOctopus, PassagePathing, TransparentOrigami, ExtendedPolymerization, Chiton, PacketDecoder, TrickShot, Snailfish, BeaconScanner, TrenchMap,
     DiracDice, ReactorReboot, Amphipods, ArithmeticLogicUnit, SeaCucumber
-).forEach { it.run() }
+).forEach { puzzle ->
+    val name = puzzle.javaClass.simpleName
+    println("Solving $name puzzle")
+    val time = measureTimeMillis { puzzle.run() }.toDouble() / 1000
+    println("Finished solving $name in $time seconds\n")
+}
 
 object PuzzleData {
 

@@ -15,17 +15,16 @@ object TrickShot : Runnable {
         val trajectories = giveItYourBestShot(0, 20, 0, 250)
         val maxHeight = trajectories.maxOf { t -> t.path.maxOf { c -> c.y } }
         val velocitiesForMaxHeight = trajectories.filter { it.path.any { c -> c.y == maxHeight } }.map { it.vInit }
-        println("Velocities reaching max height of $maxHeight: $velocitiesForMaxHeight")
+        //println("Velocities reaching max height of $maxHeight: $velocitiesForMaxHeight")
         return maxHeight
     }
 
     fun countVelocities(): Int {
         val velocities = giveItYourBestShot(0, 100, -250, 250).map { it.vInit }
-        val successfulInitialVelocities = velocities.count()
-        println("Number of distinct successful velocities: $successfulInitialVelocities")
-        println("Velocity with min/max X: ${velocities.minByOrNull { it.x }} / ${velocities.maxByOrNull { it.x }}")
-        println("Velocity with min/max Y: ${velocities.minByOrNull { it.y }} / ${velocities.maxByOrNull { it.y }}")
-        return successfulInitialVelocities
+        //println("Number of distinct successful velocities: ${velocities.count()}")
+        //println("Velocity with min/max X: ${velocities.minByOrNull { it.x }} / ${velocities.maxByOrNull { it.x }}")
+        //println("Velocity with min/max Y: ${velocities.minByOrNull { it.y }} / ${velocities.maxByOrNull { it.y }}")
+        return velocities.count()
     }
 
     private fun giveItYourBestShot(xMin: Int, xMax: Int, yMin: Int, yMax: Int): List<Trajectory> =

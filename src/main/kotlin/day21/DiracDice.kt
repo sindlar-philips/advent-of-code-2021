@@ -20,7 +20,6 @@ object DiracDice : Runnable {
     fun quantumDice(start1: Int, start2: Int): BigInteger {
         val initial = mapOf(GameState(start1, 0, start2, 0, 0) to BigInteger.ONE)
         val final = quantumRoll(initial, true)
-        println(final)
         return maxOf(final.first, final.second)
     }
 
