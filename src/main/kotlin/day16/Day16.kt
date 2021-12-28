@@ -42,7 +42,7 @@ class GreaterThanPacket(version: Int, sub: List<Packet>) : OperatorPacket(versio
 class LessThanPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "lt", sub)
 class EqualToPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, name = "eq", sub)
 
-object Day16 {
+object Day16 : Runnable {
 
     val packets = PuzzleData.load("/day16/day16.txt") { parse(it) }
 
@@ -136,5 +136,10 @@ object Day16 {
     private fun parse(lines: List<String>): List<Packet> {
         val binString = lines.single().hexToBin()
         return getPackets(binString, listOf())
+    }
+
+    override fun run() {
+        println("Day 16, sum of versions: ${sumVersions()}")
+        println("Day 16, expression: ${packets.single().eval()}")
     }
 }

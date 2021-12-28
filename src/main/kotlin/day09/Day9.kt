@@ -3,7 +3,7 @@ package day09
 import Coordinate
 import PuzzleData
 
-object Day9 {
+object Day9 : Runnable {
 
     private val heights = PuzzleData.load("/day09/day9.txt") { parse(it) }
 
@@ -34,4 +34,9 @@ object Day9 {
     private fun parse(lines: List<String>): Map<Coordinate, Int> = lines.mapIndexed { x, heights ->
         heights.chunked(1).mapIndexed { y, height -> Pair(Coordinate(x, y), height.toInt()) }
     }.flatten().toMap()
+
+    override fun run() {
+        println("Day 9, sum of risk levels: ${sumOfRiskLevels()}")
+        println("Day 9, product of three largest basin sizes: ${productOfThreeLargestBasinSizes()}")
+    }
 }

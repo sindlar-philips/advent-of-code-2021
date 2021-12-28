@@ -48,7 +48,7 @@ data class Image(val pixels: Map<Coordinate, Char>) {
     }
 }
 
-object Day20 {
+object Day20 : Runnable {
 
     internal val algorithm = PuzzleData.load("/day20/day20-algorithm.txt") { parseAlgorithm(it) }
     internal val image = PuzzleData.load("/day20/day20-image.txt") { parseImage(it) }
@@ -76,5 +76,10 @@ object Day20 {
             }
         }.flatten().toMap()
         return Image(pixels)
+    }
+
+    override fun run() {
+        println("Day 20, 2x enhanced: ${enhanceAndCountLitPixels(2)}")
+        println("Day 20, 50x enhanced: ${enhanceAndCountLitPixels(50)}")
     }
 }

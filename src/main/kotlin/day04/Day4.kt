@@ -35,7 +35,7 @@ class Board(private val state: Map<Coordinate, Int>, numbers: List<Int>, private
     }
 }
 
-object Day4 {
+object Day4 : Runnable {
 
     private const val boardSize = 5
     private val boards = loadBoards()
@@ -65,4 +65,9 @@ object Day4 {
     }
 
     private fun parseNumbers(lines: List<String>): List<Int> = lines[0].split(",").map { it.toInt() }
+
+    override fun run() {
+        println("Day 4, bingo first: ${getScoreOfFirstWinningBoard()}")
+        println("Day 4, bingo last: ${getScoreOfLastWinningBoard()}")
+    }
 }

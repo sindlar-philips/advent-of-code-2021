@@ -2,7 +2,7 @@ package day03
 
 import PuzzleData
 
-object Day3 {
+object Day3 : Runnable {
 
     private val binaryNumbers = PuzzleData.load("/day03/day3.txt") { parseBinaryNumbers(it) }
 
@@ -45,4 +45,9 @@ object Day3 {
 
     private fun parseBinaryNumbers(lines: List<String>): List<List<Int>> =
         lines.map { s -> s.chunked(1).map { c -> c.toInt() }.toList() }
+
+    override fun run() {
+        println("Day 3, power consumption: ${calculatePowerConsumption()}")
+        println("Day 3, life support rating: ${calculateLifeSupportRating()}")
+    }
 }

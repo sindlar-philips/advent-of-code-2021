@@ -26,7 +26,7 @@ class Line(private val start: Coordinate, private val end: Coordinate) {
     override fun toString(): String = "$start -> $end"
 }
 
-object Day5  {
+object Day5 : Runnable {
 
     private val lines = PuzzleData.load("/day05/day5.txt") { parseLines(it) }
 
@@ -40,4 +40,8 @@ object Day5  {
             val y = coordinateStrings[1].split(",").map{ n -> n.toInt() }
             Line(Coordinate(x[0], x[1]), Coordinate(y[0], y[1]))
         }
+
+    override fun run() {
+        println("Day 5, number of coordinates in two or more lines (with diagonals): ${countCoordinatesInTwoOrMoreLines()}")
+    }
 }

@@ -3,7 +3,7 @@ package day11
 import Coordinate
 import PuzzleData
 
-object Day11 {
+object Day11 : Runnable {
 
     private val grid = PuzzleData.load("/day11/day11.txt") { parse(it) }
 
@@ -42,4 +42,9 @@ object Day11 {
     private fun parse(lines: List<String>): Map<Coordinate, Int> = lines.mapIndexed { x, energyLevels ->
         energyLevels.chunked(1).mapIndexed { y, level -> Pair(Coordinate(x, y), level.toInt()) }
     }.flatten().toMap()
+
+    override fun run() {
+        println("Day 11, flashes after 100 steps: ${countFlashesAfter100Steps()}")
+        println("Day 11, first synchronized flash step: ${findFirstSynchronizedFlashStep()}")
+    }
 }

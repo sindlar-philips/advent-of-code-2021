@@ -7,7 +7,7 @@ import java.util.stream.Collectors
 data class Trajectory(val vInit: Velocity, val path: List<Coordinate>)
 data class Velocity(val x: Int, val y: Int)
 
-object Day17 {
+object Day17 : Runnable {
 
     private val targetArea = PuzzleData.load("/day17/day17.txt") { parseTargetArea(it) }
 
@@ -72,4 +72,10 @@ object Day17 {
         return coordinates.toSet()
     }
 
+    override fun run() {
+        println("Day 17, maximum height")
+        maxHeight()
+        println("Day 17, number of successful initial velocities")
+        countVelocities()
+    }
 }

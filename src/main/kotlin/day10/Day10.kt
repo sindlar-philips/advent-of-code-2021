@@ -4,7 +4,7 @@ import PuzzleData
 
 class InvalidCharacterException(val invalidCharacter: Char) : Exception("Invalid character: $invalidCharacter")
 
-object Day10 {
+object Day10 : Runnable {
 
     private val lines = PuzzleData.load("/day10/day10.txt") { parse(it) }
     private val validChars = setOf(Pair('(', ')'), Pair('[', ']'), Pair('{', '}'), Pair('<', '>'))
@@ -74,4 +74,9 @@ object Day10 {
     private fun isValidPair(some: Char, other: Char): Boolean = validChars.contains(Pair(some, other))
 
     private fun parse(lines: List<String>): List<List<Char>> = lines.map { it.toCharArray().asList() }
+
+    override fun run() {
+        println("Day 10, sum of first illegal characters: ${sumFirstIllegalChars()}")
+        println("Day 10, middle completion score: ${getMiddleCompletionScore()}")
+    }
 }

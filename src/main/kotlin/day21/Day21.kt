@@ -5,7 +5,7 @@ import java.math.BigInteger
 
 data class GameState(val position1: Int, val score1: Int, val position2: Int, val score2: Int, val rolls: Int)
 
-object Day21 {
+object Day21 : Runnable {
 
     fun <T> Iterator<T>.asIterable(): Iterable<T> = object : Iterable<T> {
         private val iter = this@asIterable
@@ -84,4 +84,9 @@ object Day21 {
                 }
             }
         }
+
+    override fun run() {
+        println("Day 21: play dice: ${playDice(5, 6)}")
+        println("Day 21: play quantum dice: ${quantumDice(5, 6)}")
+    }
 }

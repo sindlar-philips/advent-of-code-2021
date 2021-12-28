@@ -8,7 +8,7 @@ class DeadEndException : Exception("Dead end!")
 
 data class Node(val coordinate: Coordinate, val parent: Node?, val g: Int, val h: Int, val f: Int = g + h)
 
-object Day15 {
+object Day15 : Runnable {
 
     private val riskLevels = PuzzleData.load("/day15/day15.txt") { parse(it) }
 
@@ -70,5 +70,10 @@ object Day15 {
                 }
             }
         }.toMap()
+    }
+
+    override fun run() {
+        println("Day 15, least risky path: ${leastRiskyPath()}")
+        println("Day 15, least risky path (extended): ${leastRiskyPathExtended()}")
     }
 }

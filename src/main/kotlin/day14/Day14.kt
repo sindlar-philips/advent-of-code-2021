@@ -3,7 +3,7 @@ package day14
 import PuzzleData
 import java.util.stream.Collectors
 
-object Day14 {
+object Day14 : Runnable {
 
     private val polymer = PuzzleData.load("/day14/day14-template.txt") { parsePolymer(it) }
     private val rules = PuzzleData.load("/day14/day14-rules.txt") { parseRules(it) }
@@ -87,4 +87,9 @@ object Day14 {
         }
 
     private fun parsePolymer(lines: List<String>): String = lines.single()
+
+    override fun run() {
+        println("Day 14, create polymer and count: ${createPolymerAndCount(10)}")
+        println("Day 14, just count: ${justCount(40)}")
+    }
 }

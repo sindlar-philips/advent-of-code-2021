@@ -3,7 +3,7 @@ package day06
 import PuzzleData
 import java.util.stream.Collectors
 
-object Day6 {
+object Day6 : Runnable {
 
     private val timers = PuzzleData.load("/day06/day6.txt") { parseTimers(it) }
 
@@ -43,4 +43,9 @@ object Day6 {
 
     private fun parseTimers(lines: List<String>): Sequence<Int> =
         lines[0].split(",").map { it.toInt() }.asSequence()
+
+    override fun run() {
+        println("Day 6, number of lanternfish after 80 days: ${countLanternfishGroups(80)}")
+        println("Day 6, number of lanternfish after 256 days: ${countLanternfishGroups(256)}")
+    }
 }

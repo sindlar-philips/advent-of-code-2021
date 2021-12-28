@@ -2,7 +2,7 @@ package day02
 
 import PuzzleData
 
-object Day2  {
+object Day2 : Runnable {
 
     private val commands = PuzzleData.load("/day02/day2.txt") { parseCommands(it) }
 
@@ -39,4 +39,8 @@ object Day2  {
             val units = split[1].toInt()
             Pair(direction, units)
         }
+
+    override fun run() {
+        println("Day 2, position (with aim): ${determinePosition()}")
+    }
 }

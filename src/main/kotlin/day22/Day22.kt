@@ -54,7 +54,7 @@ data class Cuboid(val x: IntRange, val y: IntRange, val z: IntRange) {
     }
 }
 
-object Day22 {
+object Day22 : Runnable {
 
     private val instructions = PuzzleData.load("/day22/day22.txt") { parse(it) }
 
@@ -104,4 +104,10 @@ object Day22 {
                 Cuboid(xMin.toInt()..xMax.toInt(), yMin.toInt()..yMax.toInt(), zMin.toInt()..zMax.toInt())
             Instruction(on, coordinates)
         }
+
+    override fun run() {
+        println("Day 22: count on cubes (restricted): ${countOnCubes(true)}")
+        // FIXME: very slow
+        //println("Day 22: count on cubes: ${countOnCubes()}")
+    }
 }

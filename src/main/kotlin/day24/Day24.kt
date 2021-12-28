@@ -44,7 +44,7 @@ class Alu(w: Int = 0, x: Int = 0, y: Int = 0, z: Int = 0) {
         }
 }
 
-object Day24 {
+object Day24 : Runnable {
 
     internal val monadInstructions = PuzzleData.load("/day24/day24.txt") { parse(it) }
 
@@ -134,4 +134,9 @@ object Day24 {
                 else -> throw Exception("Unknown instruction: $line")
             }
         }
+
+    override fun run() {
+        println("Day 24, largest model number: ${findLargestModelNumber()}")
+        println("Day 24, smallest model number: ${findSmallestModelNumber()}")
+    }
 }

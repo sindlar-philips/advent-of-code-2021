@@ -2,7 +2,7 @@ package day01
 
 import PuzzleData
 
-object Day1 {
+object Day1 : Runnable {
 
     private val measurements = PuzzleData.load("/day01/day1.txt") { parseMeasurements(it) }
 
@@ -26,4 +26,9 @@ object Day1 {
 
     private fun parseMeasurements(lines: List<String>): List<Int> =
         lines.map { l -> l.toInt() }
+
+    override fun run() {
+        println("Day 1, number of increases: ${countIncreases()}")
+        println("Day 1, number of increases (windowed): ${countIncreasesWindowed()}")
+    }
 }

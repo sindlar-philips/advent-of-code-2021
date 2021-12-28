@@ -34,7 +34,7 @@ data class Path(val connections: List<Connection>) {
     override fun toString() = "${visitedCaves()}"
 }
 
-object Day12 {
+object Day12 : Runnable {
 
     private val connections = PuzzleData.load("/day12/day12.txt") { parse(it) }
 
@@ -64,4 +64,8 @@ object Day12 {
         val cave2 = Cave(split[1])
         listOf(Connection(cave1, cave2), Connection(cave2, cave1))
     }.toSet()
+
+    override fun run() {
+        println("Day 12, number of paths through cave system (new rules): ${countPaths()}")
+    }
 }

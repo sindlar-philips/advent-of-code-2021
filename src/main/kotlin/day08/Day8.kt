@@ -4,7 +4,7 @@ import PuzzleData
 
 data class Displays(val signals: List<String>, val outputs: List<String>)
 
-object Day8 {
+object Day8 : Runnable {
 
     private val displays = PuzzleData.load("/day08/day8.txt") { parseDisplays(it) }
 
@@ -85,4 +85,9 @@ object Day8 {
             val outputs: List<String> = signalsAndOutputs[1].split(" ").map { normalize(it) }
             Displays(signals, outputs)
         }
+
+    override fun run() {
+        println("Day 8, count unique outputs: ${countUniqueOutputs()}")
+        println("Day 8, summed values after fixing wiring: ${fixWiringAndSumValues()}")
+    }
 }

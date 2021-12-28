@@ -26,7 +26,7 @@ data class Scanner(val id: Int, val position: Coordinate3D, val beacons: List<Co
     }
 }
 
-object Day19 {
+object Day19 : Runnable {
 
     internal val scanners = PuzzleData.load("/day19/day19.txt") { parse(it) }
 
@@ -100,5 +100,10 @@ object Day19 {
             }
         }
         return scan(lines.filterNot { it.isEmpty() }, 0, listOf(), listOf())
+    }
+
+    override fun run() {
+        println("Day 19, count beacons: ${countBeacons()}")
+        println("Day 19, maximum Manhattan distance: ${manhattanDistance()}")
     }
 }

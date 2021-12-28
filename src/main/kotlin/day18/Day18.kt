@@ -19,7 +19,7 @@ data class SnailFishPair(
     override fun magnitude(): Long = 3 * left.magnitude() + 2 * right.magnitude()
 }
 
-object Day18 {
+object Day18 : Runnable {
 
     private val data = PuzzleData.load("/day18/day18.txt") { parse(it) }
 
@@ -124,4 +124,9 @@ object Day18 {
         numbers.reduce { n1, n2 -> reduce("[${reduce(n1)},${reduce(n2)}]") }
 
     private fun parse(lines: List<String>): List<String> = lines
+
+    override fun run() {
+        println("Day 18, snailfish homework, part 1: ${doHomeworkPart1()}")
+        println("Day 18, snailfish homework, part 2: ${doHomeworkPart2()}")
+    }
 }

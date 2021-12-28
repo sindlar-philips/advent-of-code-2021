@@ -3,7 +3,7 @@ package day07
 import PuzzleData
 import kotlin.math.abs
 
-object Day7 {
+object Day7 : Runnable {
 
     private val positions = PuzzleData.load("/day07/day7.txt") { parsePositions(it) }
 
@@ -30,4 +30,9 @@ object Day7 {
 
     private fun parsePositions(lines: List<String>): List<Int> =
         lines[0].split(",").map { it.toInt() }
+
+    override fun run() {
+        println("Day 7, minimum fuel required: ${minimumFuelRequired()}")
+        println("Day 7, minimum fuel required (weighted): ${minimumFuelRequiredWeighted()}")
+    }
 }

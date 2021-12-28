@@ -2,7 +2,7 @@ package day25
 
 import PuzzleData
 
-object Day25 {
+object Day25 : Runnable {
 
     private val cucumbers = PuzzleData.load("/day25/day25.txt") { it }
 
@@ -41,5 +41,9 @@ object Day25 {
             if (symbolBeforeMove == '.') symbolAfterMove.toString() + row.drop(1).dropLast(1)
             else row.dropLast(1)
         }
+    }
+
+    override fun run() {
+        println("Day 25, steps for sea cucumber equilibrium: ${stepsForSeaCucumberEquilibrium()}")
     }
 }

@@ -154,7 +154,7 @@ data class State(val board: Map<Coordinate, Amphipod?>) {
     private fun room(room: Int): Map<Coordinate, Amphipod?> = board.filterKeys { it.x == room * 2 && it.y > 0 }
 }
 
-object Day23 {
+object Day23 : Runnable {
 
     fun getStates(node: Node): List<State> {
         return if (node.parent == null) listOf(node.state)
@@ -283,4 +283,9 @@ object Day23 {
         Coordinate(8, 3) to D(),
         Coordinate(8, 4) to D()
     )
+
+    override fun run() {
+        println("Day 23, part 1: minimum energy for grouping amphipods (pen & paper): 13556")
+        println("Day 23, part 2: minimum energy for grouping amphipods: ${minimumEnergyForGroupingAmphipods()}")
+    }
 }

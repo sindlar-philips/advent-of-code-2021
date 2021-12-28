@@ -5,7 +5,7 @@ import PuzzleData
 
 typealias FoldingInstruction = (dots: Set<Coordinate>) -> Set<Coordinate>
 
-object Day13 {
+object Day13 : Runnable {
 
     private val dots = PuzzleData.load("/day13/day13-dots.txt") { parseDots(it) }
     private val instructions = PuzzleData.load("/day13/day13-instructions.txt") { parseInstructions(it) }
@@ -56,4 +56,10 @@ object Day13 {
                 else -> throw IllegalArgumentException("Not a folding instruction: $it")
             }
         }
+
+    override fun run() {
+        println("Day 13, visible dots after first fold: ${countVisibleDotsAfterFirstFold()}")
+        println("Day 13, visible dots after folding (printed):")
+        foldAndPrint()
+    }
 }
