@@ -1,7 +1,7 @@
 package day05
 
-import Coordinate
 import PuzzleData
+import day04.Coordinate
 
 class Line(private val start: Coordinate, private val end: Coordinate) {
 

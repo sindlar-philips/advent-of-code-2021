@@ -25,23 +25,6 @@ import day24.Day24
 import day25.Day25
 import java.io.File
 
-data class Coordinate(val x: Int, val y: Int) {
-
-    private fun north(): Coordinate = Coordinate(x + 1, y)
-    private fun east(): Coordinate = Coordinate(x, y + 1)
-    private fun south(): Coordinate = Coordinate(x - 1, y)
-    private fun west(): Coordinate = Coordinate(x, y - 1)
-    fun directNeighbours(): Set<Coordinate> = setOf(north(), east(), south(), west())
-
-    private fun northWest(): Coordinate = Coordinate(x + 1, y - 1)
-    private fun northEast(): Coordinate = Coordinate(x + 1, y + 1)
-    private fun southEast(): Coordinate = Coordinate(x - 1, y + 1)
-    private fun southWest(): Coordinate = Coordinate(x - 1, y - 1)
-    fun allNeighbours(): Set<Coordinate> = setOf(
-        north(), east(), south(), west(), northWest(), northEast(), southEast(), southWest()
-    )
-}
-
 fun main() = listOf(
     Day01, Day02, Day03, Day4, Day5, Day06, Day07, Day8, Day09, Day10,
     Day11, Day12, Day13, Day14, Day15, Day16, Day17, Day18, Day19, Day20,

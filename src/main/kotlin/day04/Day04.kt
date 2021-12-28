@@ -1,7 +1,23 @@
 package day04
 
-import Coordinate
 import PuzzleData
+
+data class Coordinate(val x: Int, val y: Int) {
+
+    private fun north(): Coordinate = Coordinate(x + 1, y)
+    private fun east(): Coordinate = Coordinate(x, y + 1)
+    private fun south(): Coordinate = Coordinate(x - 1, y)
+    private fun west(): Coordinate = Coordinate(x, y - 1)
+    fun directNeighbours(): Set<Coordinate> = setOf(north(), east(), south(), west())
+
+    private fun northWest(): Coordinate = Coordinate(x + 1, y - 1)
+    private fun northEast(): Coordinate = Coordinate(x + 1, y + 1)
+    private fun southEast(): Coordinate = Coordinate(x - 1, y + 1)
+    private fun southWest(): Coordinate = Coordinate(x - 1, y - 1)
+    fun allNeighbours(): Set<Coordinate> = setOf(
+        north(), east(), south(), west(), northWest(), northEast(), southEast(), southWest()
+    )
+}
 
 class Board(private val state: Map<Coordinate, Int>, numbers: List<Int>, private val size: Int) {
 

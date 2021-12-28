@@ -1,7 +1,7 @@
 package day13
 
-import Coordinate
 import PuzzleData
+import day04.Coordinate
 
 typealias FoldingInstruction = (dots: Set<Coordinate>) -> Set<Coordinate>
 

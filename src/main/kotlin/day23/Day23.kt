@@ -1,6 +1,6 @@
 package day23
 
-import Coordinate
+import day04.Coordinate
 import day15.DeadEndException
 import kotlin.math.max
 import kotlin.math.min

@@ -1,7 +1,7 @@
 package day15
 
-import Coordinate
 import PuzzleData
+import day04.Coordinate
 import kotlin.math.abs
 
 class DeadEndException : Exception("Dead end!")

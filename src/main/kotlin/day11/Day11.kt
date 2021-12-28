@@ -1,7 +1,7 @@
 package day11
 
-import Coordinate
 import PuzzleData
+import day04.Coordinate
 
 object Day11 : Runnable {
 

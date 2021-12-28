@@ -1,7 +1,7 @@
 package day20
 
-import Coordinate
 import PuzzleData
+import day04.Coordinate
 
 data class Image(val pixels: Map<Coordinate, Char>) {
 

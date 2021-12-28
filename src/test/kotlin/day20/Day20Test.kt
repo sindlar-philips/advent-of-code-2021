@@ -1,6 +1,6 @@
 package day20
 
-import Coordinate
+import day04.Coordinate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

@@ -1,7 +1,7 @@
 package day17
 
-import Coordinate
 import PuzzleData
+import day04.Coordinate
 import java.util.stream.Collectors
 
 data class Trajectory(val vInit: Velocity, val path: List<Coordinate>)
