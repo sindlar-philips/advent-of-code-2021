@@ -1,4 +1,29 @@
-import Day16.eval
+import day16.Day16.eval
+import day01.Day1
+import day02.Day2
+import day03.Day3
+import day04.Day4
+import day05.Day5
+import day06.Day6
+import day07.Day7
+import day08.Day8
+import day09.Day9
+import day10.Day10
+import day11.Day11
+import day12.Day12
+import day13.Day13
+import day14.Day14
+import day15.Day15
+import day16.Day16
+import day17.Day17
+import day18.Day18
+import day19.Day19
+import day20.Day20
+import day21.Day21
+import day22.Day22
+import day23.Day23
+import day24.Day24
+import day25.Day25
 import java.io.File
 
 data class Coordinate(val x: Int, val y: Int) {
@@ -85,7 +110,7 @@ fun main() {
 
     println("Day 22: count on cubes (restricted): ${Day22.countOnCubes(true)}")
     // FIXME: very slow
-    //println("Day 22: count on cubes: ${Day22.countOnCubes()}")
+    //println("Day 22: count on cubes: ${day22.Day22.countOnCubes()}")
 
     println("Day 23, part 1: managed with good old pen & paper, modify input for part 2 to verify")
     println("Day 23, part 2: ${Day23.minimumEnergyForGroupingAmphipods()}")
