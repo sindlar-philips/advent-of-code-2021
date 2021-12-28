@@ -2,6 +2,7 @@ package day22
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class Day22Test {
@@ -12,6 +13,7 @@ internal class Day22Test {
     }
 
     @Test
+    @Disabled("Too slow!")
     fun counOnCubes() {
         assertEquals(2758514936282235, Day22.countOnCubes())
     }
