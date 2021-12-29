@@ -14,7 +14,7 @@ object TrickShot : Runnable {
     fun maxHeight(): Int {
         val trajectories = giveItYourBestShot(0, 20, 0, 250)
         val maxHeight = trajectories.maxOf { t -> t.path.maxOf { c -> c.y } }
-        val velocitiesForMaxHeight = trajectories.filter { it.path.any { c -> c.y == maxHeight } }.map { it.vInit }
+        //val velocitiesForMaxHeight = trajectories.filter { it.path.any { c -> c.y == maxHeight } }.map { it.vInit }
         //println("Velocities reaching max height of $maxHeight: $velocitiesForMaxHeight")
         return maxHeight
     }

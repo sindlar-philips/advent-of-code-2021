@@ -2,6 +2,7 @@ package day15
 
 import PuzzleData
 import day04.Coordinate
+import java.util.*
 import kotlin.math.abs
 
 class DeadEndException : Exception("Dead end!")
@@ -26,7 +27,8 @@ object Chiton : Runnable {
     }
 
     private fun aStar(start: Coordinate, goal: Coordinate, riskLevels: Map<Coordinate, Int>): Node {
-        val open = mutableSetOf(Node(start, null, 0, h(start, goal)))
+        val open = PriorityQueue<Node> { n1, n2 -> (n1.f).compareTo(n2.f) }
+        open.add(Node(start, null, 0, h(start, goal)))
         val closed = mutableSetOf<Coordinate>()
         while (open.isNotEmpty()) {
             val bestCandidate = open.minByOrNull { it.f }!!
@@ -37,10 +39,9 @@ object Chiton : Runnable {
             neighbours.forEach { nb ->
                 if (!closed.contains(nb)) {
                     val new = Node(nb, bestCandidate, bestCandidate.g + riskLevels[nb]!!, h(nb, goal))
-                    val existing = open.filter { old -> old.coordinate == nb }
-                    if (existing.isEmpty()) open.add(new)
+                    val old = open.firstOrNull { old -> old.coordinate == nb }
+                    if (old == null) open.add(new)
                     else {
-                        val old = existing.single()
                         if (new.g < old.g) {
                             open.remove(old)
                             open.add(new)

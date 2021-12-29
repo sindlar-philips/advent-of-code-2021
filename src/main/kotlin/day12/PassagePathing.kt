@@ -1,6 +1,7 @@
 package day12
 
 import PuzzleData
+import java.util.stream.Collectors
 
 data class Cave(private val name: String) {
     fun isEnd(): Boolean = name == "end"
@@ -40,7 +41,7 @@ object PassagePathing : Runnable {
 
     fun countPaths(): Int {
         val starts = connections.filter { it.from.isStart() }
-        val paths = starts.flatMap { findPaths(it) }
+        val paths = starts.parallelStream().map { findPaths(it) }.collect(Collectors.toList()).flatten()
         return paths.count()
     }
 

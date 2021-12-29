@@ -1,6 +1,7 @@
 package day19
 
 import PuzzleData
+import java.util.stream.Collectors
 import kotlin.math.abs
 
 data class Coordinate3D(val x: Int, val y: Int, val z: Int) {
@@ -50,7 +51,9 @@ object BeaconScanner : Runnable {
             val remaining = scanners.filterNot { ignoredIds.contains(it.id) }
             if (remaining.isEmpty()) return closed + open
             val candidates = remaining.flatMap { it.allOrientations() }
-            val new = open.flatMap { ref -> candidates.mapNotNull { candidate -> normalize(12, ref, candidate) } }
+            val new = open.parallelStream().map { ref ->
+                candidates.mapNotNull { candidate -> normalize(12, ref, candidate) }
+            }.collect(Collectors.toList()).flatten()
             return if (new.isEmpty()) closed + open
             else go(new.toSet(), closed + open)
         }

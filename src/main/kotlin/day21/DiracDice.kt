@@ -2,6 +2,7 @@ package day21
 
 import java.lang.Integer.min
 import java.math.BigInteger
+import java.util.stream.Collectors
 
 data class GameState(val position1: Int, val score1: Int, val position2: Int, val score2: Int, val rolls: Int)
 
@@ -31,7 +32,7 @@ object DiracDice : Runnable {
             if (state.score1 >= 21) Pair(nStates, BigInteger.ZERO)
             else if (state.score2 >= 21) Pair(BigInteger.ZERO, nStates)
             else {
-                quantumDie().map { (roll, nRolls) ->
+                quantumDie().toList().parallelStream().map { (roll, nRolls) ->
                     val nStatesUpd = nStates * nRolls
                     if (isReadyPlayerOne) {
                         val position = move(state.position1, roll)
@@ -44,7 +45,7 @@ object DiracDice : Runnable {
                         val stateUpd = GameState(state.position1, state.score1, position, score, 0)
                         quantumRoll(mapOf(stateUpd to nStatesUpd), true)
                     }
-                }.reduce { s1, s2 -> Pair(s1.first + s2.first, s1.second + s2.second) }
+                }.collect(Collectors.toList()).reduce { s1, s2 -> Pair(s1.first + s2.first, s1.second + s2.second) }
             }
         }.reduce { s1, s2 -> Pair(s1.first + s2.first, s1.second + s2.second) }
     }

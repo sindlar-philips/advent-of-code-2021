@@ -1,6 +1,7 @@
 package day07
 
 import PuzzleData
+import java.util.stream.Collectors
 import kotlin.math.abs
 
 object TheTreacheryOfWhales : Runnable {
@@ -21,7 +22,7 @@ object TheTreacheryOfWhales : Runnable {
     }
 
     private fun calculateFuel(target: Int, f: (Int) -> Int): Int {
-        return positions.sumOf { f(abs(it - target)) }
+        return positions.parallelStream().map { f(abs(it - target)) }.collect(Collectors.toList()).sum()
     }
 
     private fun weightedSteps(steps: Int, weight: Int, acc: Int): Int =

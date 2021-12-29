@@ -2,6 +2,7 @@ package day23
 
 import day04.Coordinate
 import day15.DeadEndException
+import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 
@@ -32,23 +33,13 @@ data class State(val board: Map<Coordinate, Amphipod?>) {
 
     /**
      * Returns an evaluation of the state (lower number is better) for the benefit of A*.
-     * The evaluation is calculated as follows:
-     *   (total number of room cells MINUS number of amphipods in the correct location)
-     *     * (number of amphipods in rooms MINUS number of amphipods in the correct location PLUS one)
-     * This evaluation gives preference to states that have more amphipods in the correct location, and
-     * favors states that have amphipods outside of rooms over those where they are in the wrong room.
+     * The evaluation is calculated as the total energy required to move every amphipod to its room entrance.
      */
-    fun evaluate(): Int {
-        fun countAmphipodsInPlace(l: List<Amphipod>, roomNumber: Int, acc: Int): Int =
-            if (l.isEmpty() || l.first().roomNumber != roomNumber) acc
-            else countAmphipodsInPlace(l.drop(1), roomNumber, acc + 1)
-        return (1..4).sumOf { n ->
-            val room = room(n).toList()
-            val amphipodsFromBottom = room.sortedByDescending { (c, _) -> c.y }.mapNotNull { (_, v) -> v }
-            val amphipodsInPlace = countAmphipodsInPlace(amphipodsFromBottom, n, 0)
-            (room.size - amphipodsInPlace) * (amphipodsFromBottom.size - amphipodsInPlace + 1)
-        }
-    }
+    fun evaluate(): Int =
+        board.map { (coordinate, amphipod) ->
+            if (amphipod == null) 0
+            else amphipod.energy * getPath(coordinate, Coordinate(amphipod.roomNumber * 2, 0)).size
+        }.sum()
 
     /**
      * Returns possible moves as a pair of the resulting states and the cost of the move (i.e. the energy spent
@@ -170,7 +161,8 @@ object Amphipods : Runnable {
     }
 
     private fun aStar(start: State, goal: State): Node {
-        val open = mutableSetOf(Node(start, null, 0, start.evaluate()))
+        val open = PriorityQueue<Node> { n1, n2 -> (n1.cost + n1.estimation).compareTo(n2.cost + n2.estimation) }
+        open.add(Node(start, null, 0, start.evaluate()))
         val closed = mutableSetOf<State>()
         while (open.isNotEmpty()) {
             val bestCandidate = open.minByOrNull { it.cost + it.estimation }!!
@@ -181,10 +173,9 @@ object Amphipods : Runnable {
             nextStates.forEach { (ns, c) ->
                 if (!closed.contains(ns)) {
                     val new = Node(ns, bestCandidate, bestCandidate.cost + c, ns.evaluate())
-                    val existing = open.filter { old -> old.state == ns }
-                    if (existing.isEmpty()) open.add(new)
+                    val old = open.firstOrNull { old -> old.state == ns }
+                    if (old == null) open.add(new)
                     else {
-                        val old = existing.single()
                         if (new.cost < old.cost) {
                             open.remove(old)
                             open.add(new)
