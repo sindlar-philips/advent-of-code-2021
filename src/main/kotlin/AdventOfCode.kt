@@ -42,7 +42,7 @@ object PuzzleData {
 
     fun <T> load(resourceLocation: String, transform: (lines: List<String>) -> T): T {
         val resourceUrl = javaClass.getResource(resourceLocation)
-            ?: throw Error("Error loading resource: $resourceLocation")
+            ?: throw Exception("Error loading resource: $resourceLocation")
         val lines = File(resourceUrl.path).reader().readLines()
         return transform(lines)
     }

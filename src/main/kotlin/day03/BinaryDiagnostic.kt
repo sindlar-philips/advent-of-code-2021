@@ -37,7 +37,7 @@ object BinaryDiagnostic : Runnable {
     private fun getInputForLifeSupportRating(
         rate: (l: List<List<Int>>) -> List<Int>, binaryNumbers: List<List<Int>>, position: Int
     ): List<Int> {
-        if (binaryNumbers.size == 1) return binaryNumbers[0] else if (binaryNumbers.isEmpty()) throw Error("Not expecting empty list here!")
+        if (binaryNumbers.size == 1) return binaryNumbers[0] else if (binaryNumbers.isEmpty()) throw Exception("Not expecting empty list here!")
         val rating = rate(binaryNumbers)
         val filteredNumbers = binaryNumbers.filter { it[position] == rating[position] }
         return getInputForLifeSupportRating(rate, filteredNumbers, position + 1)

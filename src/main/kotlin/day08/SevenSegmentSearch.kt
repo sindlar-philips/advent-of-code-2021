@@ -21,7 +21,7 @@ object SevenSegmentSearch : Runnable {
     }.sumOf { it.toInt() }
 
     private fun fixWiring(signal: String, mapping: Map<String, String>): String = signal.toCharArray().map {
-        mapping[it.toString()] ?: throw Error("Expecting mapping!")
+        mapping[it.toString()] ?: throw Exception("Expecting mapping!")
     }.sorted().reduce { a, b -> a + b }
 
     internal fun String.minusChars(that: String): String =
@@ -74,7 +74,7 @@ object SevenSegmentSearch : Runnable {
         "acf" -> "7"
         "abcdefg" -> "8"
         "abcdfg" -> "9"
-        else -> throw Error("Unknown signal: $signal!")
+        else -> throw Exception("Unknown signal: $signal!")
     }
 
     private fun normalize(signal: String) = String(signal.toCharArray().sorted().toCharArray())

@@ -62,10 +62,10 @@ object GiantSquid : Runnable {
     }
 
     fun getScoreOfFirstWinningBoard(): Int =
-        getScore(boards.filter { it.bingo }.sortedBy { it.usedNumbers.count() }.first())
+        getScore(boards.filter { it.bingo }.minByOrNull { it.usedNumbers.count() }!!)
 
     fun getScoreOfLastWinningBoard(): Int =
-        getScore(boards.filter { it.bingo }.sortedByDescending { it.usedNumbers.count() }.first())
+        getScore(boards.filter { it.bingo }.maxByOrNull { it.usedNumbers.count() }!!)
 
     private fun getScore(board: Board): Int =
         board.sumOfUnmarkedNumbers() * board.usedNumbers.last()

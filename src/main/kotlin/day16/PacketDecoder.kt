@@ -44,9 +44,9 @@ class EqualToPacket(version: Int, sub: List<Packet>) : OperatorPacket(version, n
 
 object PacketDecoder : Runnable {
 
-    val packets = PuzzleData.load("/day16/hexadecimal-transmission.txt") { parse(it) }
+    private val packets = PuzzleData.load("/day16/hexadecimal-transmission.txt") { parse(it) }
 
-    fun sumVersions(): Int = getVersions(packets).sumOf { it }
+    private fun sumVersions(): Int = getVersions(packets).sumOf { it }
 
     internal fun getVersions(packets: List<Packet>): List<Int> =
         packets.flatMap { packet ->
@@ -59,8 +59,7 @@ object PacketDecoder : Runnable {
 
     private fun getPacketAndRest(bin: String): Pair<Packet, String> {
         val version = bin.take(3).toInt(2)
-        val typeId = bin.drop(3).take(3).toInt(2)
-        return when (typeId) {
+        return when (val typeId = bin.drop(3).take(3).toInt(2)) {
             4 -> getLiteralPacketAndRest(version, bin.drop(6))
             else -> {
                 val lengthTypeId = bin.drop(6).take(1).toInt(2)

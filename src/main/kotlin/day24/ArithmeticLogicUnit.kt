@@ -55,7 +55,7 @@ object ArithmeticLogicUnit : Runnable {
 
     internal val monadInstructions = PuzzleData.load("/day24/monad-program.txt") { parse(it) }
 
-    fun findLargestModelNumber(): List<Int> {
+    private fun findLargestModelNumber(): List<Int> {
         val chunks = monadInstructions.chunked(18)
         val largestNumberSelector = { ns: List<List<Int>> -> ns.maxByOrNull { it.joinToString("") }!! }
         fun search(firstDigit: Int): List<Int> {
@@ -68,7 +68,7 @@ object ArithmeticLogicUnit : Runnable {
         return search(9)
     }
 
-    fun findSmallestModelNumber(): List<Int> {
+    private fun findSmallestModelNumber(): List<Int> {
         val chunks = monadInstructions.chunked(18)
         val smallestNumberSelector = { ns: List<List<Int>> -> ns.minByOrNull { it.joinToString("") }!! }
         fun search(firstDigit: Int): List<Int> {

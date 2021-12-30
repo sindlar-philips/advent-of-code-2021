@@ -62,7 +62,7 @@ object SyntaxScoring : Runnable {
                 ']' -> 2
                 '}' -> 3
                 '>' -> 4
-                else -> throw Error("Unexpected character: ${chars.first()}")
+                else -> throw Exception("Unexpected character: ${chars.first()}")
             }
             scoreCompletionString(chars.drop(1), (current * 5) + charScore)
         }

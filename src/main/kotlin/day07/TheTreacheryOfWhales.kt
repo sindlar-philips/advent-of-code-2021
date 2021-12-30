@@ -13,12 +13,12 @@ object TheTreacheryOfWhales : Runnable {
     fun minimumFuelRequiredWeighted(): Int = minimumFuelRequired(true)
 
     private fun minimumFuelRequired(weighted: Boolean): Int {
-        val min = positions.minOrNull() ?: throw Error("Expecting position")
-        val max = positions.maxOrNull() ?: throw Error("Expecting position")
+        val min = positions.minOrNull() ?: throw Exception("Expecting position")
+        val max = positions.maxOrNull() ?: throw Exception("Expecting position")
         val f = if (weighted) { steps: Int -> weightedSteps(steps, 1, 0) }
         else { steps: Int -> steps }
         return (min..max).minOfOrNull { target -> calculateFuel(target, f) }
-            ?: throw Error("Expecting value!")
+            ?: throw Exception("Expecting value!")
     }
 
     private fun calculateFuel(target: Int, f: (Int) -> Int): Int {

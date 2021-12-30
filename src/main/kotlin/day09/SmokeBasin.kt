@@ -29,7 +29,7 @@ object SmokeBasin : Runnable {
     private fun lowPoints(): List<Coordinate> = heights.keys.filter { it.isLowPoint() }
 
     private fun Coordinate.isLowPoint(): Boolean =
-        this.directNeighbours().mapNotNull { day09.SmokeBasin.heights[it] }.all { day09.SmokeBasin.heights[this]!! < it }
+        this.directNeighbours().mapNotNull { heights[it] }.all { heights[this]!! < it }
 
     private fun parse(lines: List<String>): Map<Coordinate, Int> = lines.mapIndexed { x, heights ->
         heights.chunked(1).mapIndexed { y, height -> Pair(Coordinate(x, y), height.toInt()) }
