@@ -1,12 +1,11 @@
 package day23
 
 import day04.Coordinate
-import day15.DeadEndException
-import java.util.*
+import day15.AStar
+import day15.Node
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
-
-data class Node(val state: State, val parent: Node?, val cost: Int, val estimation: Int)
 
 abstract class Amphipod(val energy: Int, val roomNumber: Int) {
     override fun equals(other: Any?): Boolean {
@@ -33,17 +32,17 @@ data class State(val board: Map<Coordinate, Amphipod?>) {
 
     /**
      * Returns an evaluation of the state (lower number is better) for the benefit of A*.
-     * The evaluation is calculated as the total energy required to move every amphipod to its room entrance.
-     */
+     * It is calculated as the total energy required to move every amphipod to its room entrance (Manhattan distance).
+      */
     fun evaluate(): Int =
         board.map { (coordinate, amphipod) ->
             if (amphipod == null) 0
-            else amphipod.energy * getPath(coordinate, Coordinate(amphipod.roomNumber * 2, 0)).size
+            else amphipod.energy * (abs(coordinate.x - (amphipod.roomNumber * 2)) + coordinate.y)
         }.sum()
 
     /**
      * Returns possible moves as a pair of the resulting states and the cost of the move (i.e. the energy spent
-     * by the moving amphipod. There are two sorts of moves, both of which require the amphipod to have a free path:
+     * by the moving amphipod). There are two sorts of moves, both of which require the amphipod to have a free path:
      *   - Move by an amphipod that is the "topmost" amphipod inside a room. Such a move is restricted in the sense
      *     that it cannot end on a "door" cell, i.e. just outside a room.
      *   - Move by an amphipod that is in the hall. Such a move can only be done when the amphipod is able to move
@@ -147,44 +146,19 @@ data class State(val board: Map<Coordinate, Amphipod?>) {
 
 object Amphipods : Runnable {
 
-    fun getStates(node: Node): List<State> {
-        return if (node.parent == null) listOf(node.state)
-        else getStates(node.parent) + listOf(node.state)
-    }
+    private fun getStates(node: Node<State>): List<State> =
+        if (node.parent == null) listOf(node.value) else getStates(node.parent) + listOf(node.value)
 
-    fun minimumEnergyForGroupingAmphipods(printSolutions: Boolean = false): Int {
+    private fun minimumEnergyForGroupingAmphipods(printSolutions: Boolean = false): Int {
         val start = State(initialMap())
         val goal = State(targetMap())
-        val solution = aStar(start, goal)
-        if (printSolutions) getStates(solution).forEach { it.print() }
+        val estimate = { state: State -> state.evaluate() }
+        val getNextValuesAndCost = { s: State -> s.moves() }
+        val aStar = AStar(estimate, getNextValuesAndCost)
+        val solution = aStar.search(start, goal)
+        if (printSolutions)
+            getStates(solution).forEach { it.print() }
         return solution.cost
-    }
-
-    private fun aStar(start: State, goal: State): Node {
-        val open = PriorityQueue<Node> { n1, n2 -> (n1.cost + n1.estimation).compareTo(n2.cost + n2.estimation) }
-        open.add(Node(start, null, 0, start.evaluate()))
-        val closed = mutableSetOf<State>()
-        while (open.isNotEmpty()) {
-            val bestCandidate = open.minByOrNull { it.cost + it.estimation }!!
-            if (bestCandidate.state == goal) return bestCandidate
-            open.remove(bestCandidate)
-            closed.add(bestCandidate.state)
-            val nextStates = bestCandidate.state.moves()
-            nextStates.forEach { (ns, c) ->
-                if (!closed.contains(ns)) {
-                    val new = Node(ns, bestCandidate, bestCandidate.cost + c, ns.evaluate())
-                    val old = open.firstOrNull { old -> old.state == ns }
-                    if (old == null) open.add(new)
-                    else {
-                        if (new.cost < old.cost) {
-                            open.remove(old)
-                            open.add(new)
-                        }
-                    }
-                }
-            }
-        }
-        throw DeadEndException()
     }
 
     /**
