@@ -33,10 +33,8 @@ class AStar<T>(
     private fun close(candidate: Node<T>) {
         open.remove(candidate)
         closed.add(candidate.value)
-        val nextValuesAndCost = getNextValuesAndCost(candidate.value)
-        nextValuesAndCost.forEach { (nextValue, cost) ->
-            if (closed.contains(nextValue))
-                return@forEach
+        val openOptions = getNextValuesAndCost(candidate.value).filterNot { closed.contains(it.first) }
+        openOptions.forEach { (nextValue, cost) ->
             val next = Node(nextValue, candidate, candidate.cost + cost, estimate(nextValue))
             val existing = open.firstOrNull { it.value == nextValue }
             if (existing == null)
