@@ -22,27 +22,32 @@ class AStar<T>(
     fun search(start: T, goal: T): Node<T> {
         initialize(start)
         while (open.isNotEmpty()) {
-            val bestCandidate = open.minByOrNull { it.f }!!
+            val bestCandidate = open.first()
             if (bestCandidate.value == goal)
                 return bestCandidate
             close(bestCandidate)
+            getNextValuesAndCost(bestCandidate.value)
+                .filterNot { closed.contains(it.first) }
+                .forEach { (nextValue, cost) ->
+                    val next = Node(nextValue, bestCandidate, bestCandidate.cost + cost, estimate(nextValue))
+                    updateOpen(next)
+                }
         }
         throw DeadEndException()
     }
 
-    private fun close(candidate: Node<T>) {
-        open.remove(candidate)
-        closed.add(candidate.value)
-        val openOptions = getNextValuesAndCost(candidate.value).filterNot { closed.contains(it.first) }
-        openOptions.forEach { (nextValue, cost) ->
-            val next = Node(nextValue, candidate, candidate.cost + cost, estimate(nextValue))
-            val existing = open.firstOrNull { it.value == nextValue }
-            if (existing == null)
-                open.add(next)
-            else if (next.cost < existing.cost) {
-                open.remove(existing)
-                open.add(next)
-            }
+    private fun close(node: Node<T>) {
+        open.remove(node)
+        closed.add(node.value)
+    }
+
+    private fun updateOpen(node: Node<T>) {
+        val existing = open.firstOrNull { it.value == node.value }
+        if (existing == null)
+            open.add(node)
+        else if (node.cost < existing.cost) {
+            open.remove(existing)
+            open.add(node)
         }
     }
 
